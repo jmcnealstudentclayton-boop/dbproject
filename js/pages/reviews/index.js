@@ -65,28 +65,55 @@ function sanitize(arr) {
       rating: Number(r?.rating),
       firstName: safeText(r?.firstName),
       lastName: safeText(r?.lastName),
-      // createdAt stays optional; not required for showing names
+      reviewText: safeText(r?.reviewText),
+      createdAt: safeText(r?.createdAt) || null
     }))
     .filter(r => r.productId && Number.isFinite(r.rating) && r.rating >= 0 && r.rating <= 5);
 }
 
 function groupByProduct(reviews) {
+  // We’ll keep count/sum for avg and also store up to 3 most recent text snippets.
+  // “Recent” uses createdAt (if present) or original array order fallback.
+  const parseDate = (s) => {
+    // Try to parse; fall back to NaN
+    const d = Date.parse(s);
+    return Number.isFinite(d) ? d : NaN;
+  };
+
   const map = new Map();
   for (const r of reviews) {
-    const g = map.get(r.productId) || { productId: r.productId, count: 0, sum: 0, reviewers: [] };
+    const g = map.get(r.productId) || { productId: r.productId, count: 0, sum: 0, snippets: [] };
     g.count += 1;
     g.sum += r.rating;
 
-    // Collect up to 3 distinct reviewer names for display
-    const display = buildName(r.firstName, r.lastName);
-    if (display && g.reviewers.length < 3) {
-      // avoid duplicate exact names in the short list
-      if (!g.reviewers.includes(display)) g.reviewers.push(display);
+    const name = buildName(r.firstName, r.lastName);
+    const snippet = r.reviewText ? truncate(r.reviewText, 120) : '';
+    const when = parseDate(r.createdAt);
+
+    // Only add a snippet if there is text
+    if (snippet) {
+      g.snippets.push({
+        name,
+        text: snippet,
+        fullText: r.reviewText,
+        rating: r.rating,
+        createdAt: when // may be NaN
+      });
     }
 
     map.set(r.productId, g);
   }
-  return Array.from(map.values()).map(g => ({ ...g, avg: g.count ? g.sum / g.count : 0 }));
+
+  // sort snippets by date desc if dates exist, then keep top 3
+  const out = Array.from(map.values()).map(g => {
+    const hasDates = g.snippets.some(s => Number.isFinite(s.createdAt));
+    if (hasDates) {
+      g.snippets.sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
+    }
+    g.snippets = g.snippets.slice(0, 3);
+    return { ...g, avg: g.count ? g.sum / g.count : 0 };
+  });
+  return out;
 }
 
 function applyView() {
@@ -129,8 +156,28 @@ function renderRow(r) {
   const pct = Math.max(0, Math.min(100, (r.avg / 5) * 100));
   const avgStr = (Math.round(r.avg * 10) / 10).toFixed(1);
 
-  const reviewers = r.reviewers.length
-    ? r.reviewers.map(n => `<span class="inline-flex items-center px-2 py-0.5 rounded-md bg-white/5 border border-border text-xs mr-1 mb-1">${escapeHtml(n)}</span>`).join('')
+  // Build recent review chips (name + short quote)
+  const reviewsHtml = r.snippets.length
+    ? r.snippets.map(s => {
+        // tiny star bar for this individual rating
+        const p = Math.max(0, Math.min(100, (s.rating / 5) * 100));
+        return `
+          <div class="p-2 pr-3 mr-2 mb-2 rounded-lg border border-border bg-white/5 inline-flex items-start gap-2 max-w-full">
+            <div class="mt-0.5">
+              <div class="relative leading-none text-[14px] tracking-[2px] select-none">
+                <div class="text-[color:#2a3545]">★★★★★</div>
+                <div class="absolute inset-0 overflow-hidden whitespace-nowrap" style="width:${p}%">
+                  <div class="text-[color:#fbbf24]">★★★★★</div>
+                </div>
+              </div>
+            </div>
+            <div class="text-xs sm:text-sm">
+              <div class="font-semibold">${escapeHtml(s.name || 'Anonymous')}</div>
+              <div class="text-[color:#93a1b3] break-words">${escapeHtml(s.text)}</div>
+            </div>
+          </div>
+        `;
+      }).join('')
     : `<span class="text-[color:#93a1b3] text-sm">—</span>`;
 
   tr.innerHTML = `
@@ -147,24 +194,28 @@ function renderRow(r) {
       </div>
     </td>
     <td class="px-4 py-4 text-[color:#93a1b3]">${r.count}</td>
-    <td class="px-4 py-4"><div class="flex flex-wrap">${reviewers}</div></td>
+    <td class="px-4 py-4">
+      <div class="flex flex-wrap">${reviewsHtml}</div>
+    </td>
   `;
   return tr;
 }
 
 function safeText(v) {
   if (v == null) return '';
-  const s = String(v).trim();
-  return s;
+  return String(v).trim();
 }
 
 function buildName(first, last) {
-  if (!first && !last) return '';
-  // Capitalize first letter of each part
-  const cap = str => str ? str.charAt(0).toUpperCase() + str.slice(1) : '';
-  const f = cap(first);
-  const l = cap(last);
+  const cap = str => (str ? str.charAt(0).toUpperCase() + str.slice(1) : '');
+  const f = cap(first), l = cap(last);
   return (f && l) ? `${f} ${l}` : (f || l);
+}
+
+function truncate(s, n) {
+  if (!s) return '';
+  const str = String(s);
+  return str.length > n ? str.slice(0, n - 1) + '…' : str;
 }
 
 function showError(msg) {

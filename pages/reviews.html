@@ -25,7 +25,7 @@
 </head>
 <body class="min-h-screen bg-[radial-gradient(1200px_700px_at_20%_-10%,#122033_0%,#0b0f14_60%)] text-white">
   <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-    <header class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4">
+    <header class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap:3 mb-4">
       <div>
         <h1 class="text-2xl sm:text-3xl font-bold tracking-tight">Ratings by Product</h1>
         <p class="text-muted text-sm">Live summary from your JSONBin reviews.</p>
@@ -60,25 +60,27 @@
         <table class="w-full text-left">
           <thead class="bg-bg/60 sticky top-0">
             <tr class="[&>th]:px-4 [&>th]:py-3 [&>th]:text-xs [&>th]:uppercase [&>th]:tracking-wide [&>th]:text-muted border-b border-border">
-              <th class="w-1/4">Product ID</th>
+              <th class="w-1/5">Product ID</th>
               <th class="w-2/5">Average Rating</th>
-              <th class="w-1/6">Reviews</th>
-              <th class="w-1/4">Recent Reviewers</th>
+              <th class="w-1/12">Reviews</th>
+              <th class="w-1/3">Recent Reviews</th>
             </tr>
           </thead>
           <tbody id="tbody" class="divide-y divide-border"></tbody>
         </table>
       </div>
     </section>
-        <!-- place this anywhere below your form or header -->
-<div class="mt-6 text-center">
-  <a
-    href="../pages/forms/f_googlesheet.html"
-    class="inline-block px-5 py-2.5 rounded-xl border border-[#1f2a3a] bg-[#0f1622] text-white text-sm font-medium hover:border-cyan-600 hover:bg-[#132033] transition"
-  >
-    Leave a Review
-  </a>
-</div>
+
+    <!-- “Leave a Review” button -->
+    <div class="mt-6 text-center">
+      <a
+        href="../pages/forms/f_googlesheet.html"
+        class="inline-block px-5 py-2.5 rounded-xl border border-[#1f2a3a] bg-[#0f1622] text-white text-sm font-medium hover:border-cyan-600 hover:bg-[#132033] transition"
+      >
+        Leave a Review
+      </a>
+    </div>
+
     <p id="errors" class="mt-3 text-sm text-red-300 hidden"></p>
 
     <footer class="mt-4 text-xs text-muted">
@@ -86,6 +88,7 @@
     </footer>
   </div>
 
+  <!-- adjust path if your folder differs -->
   <script type="module" src="../js/pages/reviews/index.js"></script>
 </body>
 </html>
