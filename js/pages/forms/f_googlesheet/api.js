@@ -3,6 +3,8 @@ import { WEBHOOK_BUILD, CACHE_TTL_MS, PRODUCTS_JSON_URL } from './config.js';
 export function pingBuildOnce({ forceFetch = false } = {}) {
   try {
     if (!WEBHOOK_BUILD) return;
+
+    // one-per-session
     if (!forceFetch && sessionStorage.getItem('catalogPinged')) {
       console.log('[build] skipped (already pinged this session)');
       return;
@@ -21,27 +23,32 @@ export function pingBuildOnce({ forceFetch = false } = {}) {
 
     console.log('[build] sending to', WEBHOOK_BUILD, payload);
 
+    // 1) Prefer beacon (no CORS preflight)
     if (!forceFetch && navigator.sendBeacon) {
       const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
       const ok = navigator.sendBeacon(WEBHOOK_BUILD, blob);
-      console.log('[build] sendBeacon ok?', ok);
-      if (ok) return;
+      console.log('[build] beacon sent?', ok);
+      return; // we’re done
     }
 
+    // 2) Fallback: fire-and-forget without CORS preflight
+    // Use a "simple" Content-Type so the browser won't preflight.
     fetch(WEBHOOK_BUILD, {
       method: 'POST',
-      mode: 'cors',
-      credentials: 'omit',
-      headers: { 'Content-Type': 'application/json' },
+      mode: 'no-cors',                          // opaque response; that's fine
+      credentials: 'omit',                      // critical: no cookies
+      headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
       body: JSON.stringify(payload),
       keepalive: true,
-    })
-      .then((r) => console.log('[build] fetch status', r.status))
-      .catch((err) => console.error('[build] fetch error', err));
+    });
+    // no .then/.catch — response is opaque in no-cors mode
   } catch (e) {
     console.error('[build] error', e);
   }
 }
+
+
+
 
 /**
  * Fetch your catalog only from PRODUCTS_JSON_URL and normalize.
