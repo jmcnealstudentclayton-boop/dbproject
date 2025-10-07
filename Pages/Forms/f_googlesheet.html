@@ -3,17 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Submit a Review</title>
-  <!-- Tailwind (CDN build for quick start) -->
+  <title>Submit a Review → Google Sheets (Make)</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    /* Fallback fonts in case Tailwind CDN is blocked */
-    body { font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji"; }
-    /* Narrower number input for Stars */
-    input[type=number]::-webkit-outer-spin-button,
-    input[type=number]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
-    input[type=number] { -moz-appearance: textfield; }
-  </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
   <main class="max-w-3xl mx-auto p-4 sm:p-6 lg:p-8">
@@ -21,28 +12,24 @@
       <h1 class="text-3xl font-semibold tracking-tight mb-6">Submit a Review</h1>
 
       <form id="reviewForm" class="space-y-5" novalidate>
-        <!-- First name -->
         <div>
           <label for="firstName" class="block text-sm font-medium text-gray-700 mb-1">First name</label>
           <input id="firstName" name="firstName" type="text" required
                  class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
         </div>
 
-        <!-- Last name -->
         <div>
           <label for="lastName" class="block text-sm font-medium text-gray-700 mb-1">Last name</label>
           <input id="lastName" name="lastName" type="text" required
                  class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
         </div>
 
-        <!-- Email -->
         <div>
           <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
           <input id="email" name="email" type="email" inputmode="email" autocomplete="email" required
                  class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
         </div>
 
-        <!-- Item select -->
         <div>
           <label for="item" class="block text-sm font-medium text-gray-700 mb-1">Item</label>
           <select id="item" name="item" required
@@ -51,99 +38,40 @@
           </select>
         </div>
 
-        <!-- Stars (1–5) -->
         <div>
           <label for="stars" class="block text-sm font-medium text-gray-700 mb-1">Stars (1–5)</label>
           <input id="stars" name="stars" type="number" min="1" max="5" step="1" required
                  class="w-28 rounded-lg border border-gray-300 bg-white px-3 py-2.5 outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" />
         </div>
 
-        <!-- Review text -->
         <div>
           <label for="reviewText" class="block text-sm font-medium text-gray-700 mb-1">Review text</label>
           <textarea id="reviewText" name="reviewText" rows="6" required
                     class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2.5 outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></textarea>
         </div>
 
-        <!-- Submit button -->
         <div class="pt-2">
-          <button type="submit" class="inline-flex w-full items-center justify-center rounded-lg bg-blue-600 px-4 py-3 text-base font-semibold text-white hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">
+          <button id="submitBtn" type="submit" class="inline-flex w-full items-center justify-center rounded-lg bg-blue-600 px-4 py-3 text-base font-semibold text-white hover:bg-blue-700 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500">
             Submit Review
           </button>
         </div>
+        <!-- place this anywhere below your form or header -->
+<div class="mt-6 text-center">
+  <a
+    href="/pages/reviews.html"
+    class="inline-block px-5 py-2.5 rounded-xl border border-[#1f2a3a] bg-[#0f1622] text-white text-sm font-medium hover:border-cyan-600 hover:bg-[#132033] transition"
+  >
+    View All Reviews
+  </a>
+</div>
+
       </form>
 
-      <!-- Success + error toasts -->
       <p id="toast" class="mt-4 hidden text-sm"></p>
     </section>
   </main>
 
-  <script>
-    // TODO: Replace with your live catalog options or fetch from products.json
-    const ITEMS = [
-      { id: "KK-1010", name: "Cozie Crown Beanie" },
-      { id: "KK-1022", name: "Fringe Beanie (Red/Black)" },
-      { id: "KK-2011", name: "Plush Keychain - Pink Bunny" },
-    ];
-
-    // Populate the item <select>
-    const itemSelect = document.getElementById('item');
-    for (const p of ITEMS) {
-      const opt = document.createElement('option');
-      opt.value = p.id;
-      opt.textContent = `${p.name} (${p.id})`;
-      itemSelect.appendChild(opt);
-    }
-
-    const form = document.getElementById('reviewForm');
-    const toast = document.getElementById('toast');
-
-    function showToast(msg, ok = true) {
-      toast.textContent = msg;
-      toast.className = `mt-4 text-sm ${ok ? 'text-green-700' : 'text-red-700'}`;
-      toast.classList.remove('hidden');
-      setTimeout(() => toast.classList.add('hidden'), 4000);
-    }
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      // Basic client-side validation and payload creation
-      const data = {
-        firstName: form.firstName.value.trim(),
-        lastName: form.lastName.value.trim(),
-        email: form.email.value.trim(),
-        itemId: form.item.value,
-        stars: Number(form.stars.value),
-        reviewText: form.reviewText.value.trim(),
-        submittedAt: new Date().toISOString(),
-      };
-
-      // Minimal validations
-      if (!data.itemId) return showToast('Please choose an item.', false);
-      if (!(data.stars >= 1 && data.stars <= 5)) return showToast('Stars must be between 1 and 5.', false);
-
-      // For now: just log. Later, POST to your Make webhook to write into Google Sheets.
-      console.log('Review payload', data);
-
-      // Example placeholder POST (commented out). Replace with your Make webhook URL.
-      // try {
-      //   const res = await fetch('https://hook.us2.make.com/REPLACE_WITH_YOUR_WEBHOOK', {
-      //     method: 'POST',
-      //     headers: { 'Content-Type': 'application/json' },
-      //     body: JSON.stringify(data),
-      //   });
-      //   if (!res.ok) throw new Error('Network response was not ok');
-      //   showToast('Thanks! Your review was submitted.');
-      //   form.reset();
-      // } catch (err) {
-      //   console.error(err);
-      //   showToast('Submission failed. Please try again.', false);
-      // }
-
-      // Temporary success UX while you wire up Make
-      showToast('(Demo) Captured review in console ✔');
-      form.reset();
-    });
-  </script>
+  <!-- External module script -->
+  <script type="module" src="../../js/pages/forms/f_googlesheet/index.js"></script>
 </body>
 </html>

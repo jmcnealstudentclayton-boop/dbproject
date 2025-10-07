@@ -1,8 +1,13 @@
+# IDE caches
 .vs/
+.vscode/
+*.suo
+*.user
+*.userprefs
+
+# Build output
 bin/
 obj/
-*.user
-*.suo
-*.userprefs
-.vscode/
+
+# Node (if you add tooling later)
 node_modules/

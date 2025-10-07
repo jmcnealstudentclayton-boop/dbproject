@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Insurance — 2006 Nissan Sentra</title>
+
+  <!-- Tailwind (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- html2pdf bundle (html2canvas + jsPDF) -->
+  <script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script>
+
+  <style>
+    @media print {
+      .no-print { display: none !important; }
+      body { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body class="bg-white text-black antialiased">
+
+  <!-- Controls -->
+  <div class="max-w-2xl mx-auto p-4 no-print flex gap-2 justify-end">
+    <button onclick="window.print()" class="text-sm border px-3 py-1 rounded">Print</button>
+    <button id="btnPdf" class="text-sm border px-3 py-1 rounded">Download PDF</button>
+  </div>
+
+  <!-- Sheet -->
+  <div id="sheet" class="max-w-2xl mx-auto p-6 border rounded-lg shadow-sm">
+    <header class="border-b pb-3 mb-4 flex items-start justify-between">
+      <div>
+        <h1 class="text-lg font-bold leading-tight">GEORGIA AUTOMOBILE INSURANCE IDENTIFICATION CARD</h1>
+        <div class="text-sm">InsureMax Insurance Company — NAIC Code 10922</div>
+        <div class="text-xs text-gray-600">PO Box 723128 Atlanta, GA 31139-0128</div>
+      </div>
+      <div class="text-right">
+        <div class="text-xs font-medium">Policy #</div>
+        <div class="text-base font-bold">RGA1553972-11</div>
+      </div>
+    </header>
+
+    <section class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+      <div class="space-y-1">
+        <p><span class="font-medium">Effective Date:</span> 06/01/2025</p>
+        <p><span class="font-medium">Expiration Date:</span> 12/01/2025</p>
+      </div>
+      <div class="space-y-1">
+        <p><span class="font-medium">Year / Make / Model:</span> 2006 NISS Sentra</p>
+        <p><span class="font-medium">VIN:</span> 3N1CB51D66L640394</p>
+      </div>
+    </section>
+
+    <section class="mt-4 border-t pt-3">
+      <h2 class="font-semibold text-base mb-1">Insured</h2>
+      <p>Yolanda Darlene McNeal</p>
+      <p>1283 Lynx Ct</p>
+      <p>Hampton, GA 30228-2661</p>
+    </section>
+
+    <section class="mt-4 border-t pt-3">
+      <h2 class="font-semibold text-base mb-1">Producer</h2>
+      <p>VICTORIA LLC</p>
+      <p>(770) 629-4568</p>
+    </section>
+
+    <section class="mt-4 border-t pt-3 text-sm">
+      <h2 class="font-semibold text-base mb-1">Instructions</h2>
+      <p class="mb-2">Keep this card in your motor vehicle while in operation.</p>
+      <p class="mb-2">In case of accident call <span class="font-medium">(800) 450-7857</span> to report your claim.</p>
+      <ol class="list-decimal list-inside space-y-1">
+        <li>Name and addresses of all drivers, injured parties, witnesses and license number of each vehicle.</li>
+        <li>Name of insurance company and policy number for each vehicle involved.</li>
+        <li>Report accident to police and do not accept responsibility or make statements of the accident to anyone except your company representative or to police, if required.</li>
+      </ol>
+    </section>
+
+    <footer class="mt-6 border-t pt-3 text-xs text-gray-500 text-center">
+      GAM6 (02/19)
+    </footer>
+  </div>
+
+  <script>
+    // Download the sheet as a PDF
+    document.getElementById('btnPdf').addEventListener('click', () => {
+      const element = document.getElementById('sheet');
+      const opt = {
+        margin: [0.5, 0.5, 0.5, 0.5],  // inches
+        filename: 'Insurance_2006-Nissan-Sentra.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+      };
+      html2pdf().from(element).set(opt).save();
+    });
+  </script>
+</body>
+</html>

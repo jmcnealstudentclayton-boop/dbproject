@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Car #1 — 2023 Toyota Corolla LE — Vehicle Details</title>
+
+  <!-- Tailwind (CDN for quick use) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- html2pdf (includes html2canvas + jsPDF) -->
+  <script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script>
+
+  <style>
+    @media print {
+      .no-print { display: none !important; }
+      body { print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body class="bg-white text-black antialiased">
+
+  <!-- Controls -->
+  <div class="max-w-4xl mx-auto p-6 no-print flex gap-2 justify-end">
+    <button onclick="window.print()" class="text-sm border px-3 py-1 rounded">
+      Print
+    </button>
+    <button id="btnPdf" class="text-sm border px-3 py-1 rounded">
+      Download PDF
+    </button>
+  </div>
+
+  <!-- Sheet to export -->
+  <div id="sheet" class="max-w-4xl mx-auto p-6">
+    <!-- Header -->
+    <header class="pb-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <span class="text-2xl font-extrabold tracking-wide">TOYOTA</span>
+          <span class="px-2 py-0.5 text-xs font-semibold border rounded">Car #1</span>
+        </div>
+        <div class="text-right">
+          <div class="text-sm uppercase tracking-wide">Price</div>
+          <div class="text-2xl font-extrabold">$17,920</div>
+          
+        </div>
+      </div>
+      <div class="mt-2">
+        <h1 class="text-xl font-bold leading-tight">2023 Toyota Corolla LE FWD</h1>
+        <p class="text-sm">Vehicle Specifications Summary</p>
+        <div class="text-sm">Prepared by: Justin McNeal</div>
+      </div>
+    </header>
+
+    <!-- Overview grid -->
+    <section class="mt-3 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Vehicle Specs -->
+      <div class="space-y-3">
+        <h2 class="text-base font-semibold border-b pb-1">Vehicle Details</h2>
+        <dl class="divide-y">
+          <div class="py-2 grid grid-cols-5">
+            <dt class="col-span-2 text-sm font-medium">Make</dt>
+            <dd class="col-span-3 text-sm">Toyota</dd>
+          </div>
+          <div class="py-2 grid grid-cols-5">
+            <dt class="col-span-2 text-sm font-medium">Model</dt>
+            <dd class="col-span-3 text-sm">Corolla</dd>
+          </div>
+          <div class="py-2 grid grid-cols-5">
+            <dt class="col-span-2 text-sm font-medium">Year</dt>
+            <dd class="col-span-3 text-sm">2023</dd>
+          </div>
+          <div class="py-2 grid grid-cols-5">
+            <dt class="col-span-2 text-sm font-medium">Trim</dt>
+            <dd class="col-span-3 text-sm">LE FWD</dd>
+          </div>
+          <div class="py-2 grid grid-cols-5">
+            <dt class="col-span-2 text-sm font-medium">Body Type</dt>
+            <dd class="col-span-3 text-sm">Sedan</dd>
+          </div>
+          <div class="py-2 grid grid-cols-5">
+            <dt class="col-span-2 text-sm font-medium">Exterior / Interior</dt>
+            <dd class="col-span-3 text-sm">Blue / Black</dd>
+          </div>
+          <div class="py-2 grid grid-cols-5">
+            <dt class="col-span-2 text-sm font-medium">Mileage</dt>
+            <dd class="col-span-3 text-sm">50,674 miles</dd>
+          </div>
+          <div class="py-2 grid grid-cols-5">
+            <dt class="col-span-2 text-sm font-medium">VIN</dt>
+            <dd class="col-span-3 text-sm">5YFB4MDE0PP043893</dd>
+          </div>
+          <div class="py-2 grid grid-cols-5">
+            <dt class="col-span-2 text-sm font-medium">Stock #</dt>
+            <dd class="col-span-3 text-sm">PP043893</dd>
+          </div>
+        </dl>
+      </div>
+
+      <!-- Powertrain & Measurements -->
+      <div class="space-y-3">
+        <h2 class="text-base font-semibold border-b pb-1">Powertrain & Measurements</h2>
+        <dl class="divide-y">
+          <div class="py-2 grid grid-cols-5">
+            <dt class="col-span-2 text-sm font-medium">Engine</dt>
+            <dd class="col-span-3 text-sm">2.0L I4 DOHC 16V</dd>
+          </div>
+          <div class="py-2 grid grid-cols-5">
+            <dt class="col-span-2 text-sm font-medium">Transmission</dt>
+            <dd class="col-span-3 text-sm">CVT (Automatic)</dd>
+          </div>
+          <div class="py-2 grid grid-cols-5">
+            <dt class="col-span-2 text-sm font-medium">Drivetrain</dt>
+            <dd class="col-span-3 text-sm">Front-Wheel Drive</dd>
+          </div>
+          <div class="py-2 grid grid-cols-5">
+            <dt class="col-span-2 text-sm font-medium">Fuel Type</dt>
+            <dd class="col-span-3 text-sm">Gasoline</dd>
+          </div>
+          <div class="py-2 grid grid-cols-5">
+            <dt class="col-span-2 text-sm font-medium">MPG (City / Hwy / Comb)</dt>
+            <dd class="col-span-3 text-sm">32 / 41 / 36</dd>
+          </div>
+          <div class="py-2 grid grid-cols-5">
+            <dt class="col-span-2 text-sm font-medium">Fuel Tank</dt>
+            <dd class="col-span-3 text-sm">13 gallons</dd>
+          </div>
+          <div class="py-2 grid grid-cols-5">
+            <dt class="col-span-2 text-sm font-medium">Doors</dt>
+            <dd class="col-span-3 text-sm">4</dd>
+          </div>
+          <div class="py-2 grid grid-cols-5">
+            <dt class="col-span-2 text-sm font-medium">Front Legroom</dt>
+            <dd class="col-span-3 text-sm">42 in</dd>
+          </div>
+          <div class="py-2 grid grid-cols-5">
+            <dt class="col-span-2 text-sm font-medium">Rear Legroom</dt>
+            <dd class="col-span-3 text-sm">34 in</dd>
+          </div>
+          <div class="py-2 grid grid-cols-5">
+            <dt class="col-span-2 text-sm font-medium">Cargo Volume</dt>
+            <dd class="col-span-3 text-sm">13 cu ft</dd>
+          </div>
+        </dl>
+      </div>
+    </section>
+
+    <!-- Safety & Features -->
+    <section class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="space-y-3">
+        <h2 class="text-base font-semibold border-b pb-1">Safety</h2>
+        <ul class="list-disc pl-5 text-sm space-y-1">
+          <li>ABS Brakes</li>
+          <li>Adaptive Cruise Control</li>
+          <li>Backup Camera</li>
+          <li>Lane Departure & Collision Warning</li>
+          <li>Front + Rear Side Airbags</li>
+          <li>Stability & Traction Control</li>
+        </ul>
+      </div>
+      <div class="space-y-3">
+        <h2 class="text-base font-semibold border-b pb-1">Features</h2>
+        <ul class="list-disc pl-5 text-sm space-y-1">
+          <li>Bluetooth & Smart Device Integration</li>
+          <li>Keyless Entry</li>
+          <li>Automatic Climate Control</li>
+          <li>Power Windows, Mirrors, & Locks</li>
+          <li>8&quot; Toyota Audio Multimedia (SiriusXM Ready, 6 speakers)</li>
+          <li>Emergency Communication: Toyota Safety Connect (10-year trial)</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Dealer footer -->
+    <footer class="mt-8 border-t pt-4 text-sm">
+      <div><span class="font-medium">Dealer:</span> ALM Chevrolet South</div>
+      <div><span class="font-medium">Address:</span> 4200 Jonesboro Rd, Union City, GA 30291</div>
+      <div><span class="font-medium">Contact:</span> (770) 407-7951 &nbsp;|&nbsp; ALMCARS.COM</div>
+    </footer>
+  </div>
+
+  <script>
+    // Download the sheet as a PDF
+    document.getElementById('btnPdf').addEventListener('click', () => {
+      const element = document.getElementById('sheet');
+
+      const opt = {
+        margin:       [0.5, 0.5, 0.5, 0.5],          // inches
+        filename:     'Car-1_2023-Toyota-Corolla-LE.pdf',
+        image:        { type: 'jpeg', quality: 0.98 },
+        html2canvas:  { scale: 2, useCORS: true },
+        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' },
+        pagebreak:    { mode: ['css', 'legacy'] }
+      };
+
+      // Ignore elements with the "no-print" class
+      html2pdf().set({
+        html2canvas: { scale: 2, useCORS: true, ignoreElements: (el) => el.classList?.contains('no-print') }
+      }).from(element).set(opt).save();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{
+  "items": [
+    {
+      "item_id": "itm_001",
+      "item_name": "shirt",
+      "item_cost": 25.00
+    },
+    {
+      "item_id": "itm_002",
+      "item_name": "shorts",
+      "item_cost": 35.00
+    },
+    {
+      "item_id": "itm_003",
+      "item_name": "hat",
+      "item_cost": 15.00
+    },
+    {
+      "item_id": "itm_004",
+      "item_name": "pants",
+      "item_cost": 40.00
+    },
+    {
+      "item_id": "itm_005",
+      "item_name": "shoes",
+      "item_cost": 80.00
+    }
+  ]
+}
