@@ -63,6 +63,9 @@ function sanitize(arr) {
     .map(r => ({
       productId: r?.productId ?? r?.itemId ?? null,
       rating: Number(r?.rating),
+      firstName: safeText(r?.firstName),
+      lastName: safeText(r?.lastName),
+      // createdAt stays optional; not required for showing names
     }))
     .filter(r => r.productId && Number.isFinite(r.rating) && r.rating >= 0 && r.rating <= 5);
 }
@@ -70,9 +73,17 @@ function sanitize(arr) {
 function groupByProduct(reviews) {
   const map = new Map();
   for (const r of reviews) {
-    const g = map.get(r.productId) || { productId: r.productId, count: 0, sum: 0 };
+    const g = map.get(r.productId) || { productId: r.productId, count: 0, sum: 0, reviewers: [] };
     g.count += 1;
     g.sum += r.rating;
+
+    // Collect up to 3 distinct reviewer names for display
+    const display = buildName(r.firstName, r.lastName);
+    if (display && g.reviewers.length < 3) {
+      // avoid duplicate exact names in the short list
+      if (!g.reviewers.includes(display)) g.reviewers.push(display);
+    }
+
     map.set(r.productId, g);
   }
   return Array.from(map.values()).map(g => ({ ...g, avg: g.count ? g.sum / g.count : 0 }));
@@ -103,7 +114,7 @@ function render(rows) {
   els.tbody.innerHTML = '';
   if (!rows.length) {
     const tr = document.createElement('tr');
-    tr.innerHTML = `<td colspan="3" class="px-4 py-6 text-sm text-[color:#93a1b3]">No reviews to display.</td>`;
+    tr.innerHTML = `<td colspan="4" class="px-4 py-6 text-sm text-[color:#93a1b3]">No reviews to display.</td>`;
     els.tbody.appendChild(tr);
     return;
   }
@@ -117,6 +128,10 @@ function renderRow(r) {
   tr.className = 'hover:bg-white/5 transition';
   const pct = Math.max(0, Math.min(100, (r.avg / 5) * 100));
   const avgStr = (Math.round(r.avg * 10) / 10).toFixed(1);
+
+  const reviewers = r.reviewers.length
+    ? r.reviewers.map(n => `<span class="inline-flex items-center px-2 py-0.5 rounded-md bg-white/5 border border-border text-xs mr-1 mb-1">${escapeHtml(n)}</span>`).join('')
+    : `<span class="text-[color:#93a1b3] text-sm">—</span>`;
 
   tr.innerHTML = `
     <td class="px-4 py-4 font-mono text-sm">${escapeHtml(r.productId)}</td>
@@ -132,8 +147,24 @@ function renderRow(r) {
       </div>
     </td>
     <td class="px-4 py-4 text-[color:#93a1b3]">${r.count}</td>
+    <td class="px-4 py-4"><div class="flex flex-wrap">${reviewers}</div></td>
   `;
   return tr;
+}
+
+function safeText(v) {
+  if (v == null) return '';
+  const s = String(v).trim();
+  return s;
+}
+
+function buildName(first, last) {
+  if (!first && !last) return '';
+  // Capitalize first letter of each part
+  const cap = str => str ? str.charAt(0).toUpperCase() + str.slice(1) : '';
+  const f = cap(first);
+  const l = cap(last);
+  return (f && l) ? `${f} ${l}` : (f || l);
 }
 
 function showError(msg) {
