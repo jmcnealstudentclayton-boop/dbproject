@@ -1,129 +1,198 @@
 <!-- pageInserts/nav.html -->
 <nav class="bg-gray-900 text-white shadow-md sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-        <a href="../../index.html" class="inline-flex items-center rounded-lg px-3 py-1.5
-         text-xl font-semibold tracking-wide
-         hover:bg-gray-100 dark:hover:bg-[#111827]
-         transition-colors">
-            Database Project
-        </a>
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <!-- Brand -->
+    <a
+      href="#"
+      data-href="/index.html"
+      class="inline-flex items-center rounded-lg px-3 py-1.5
+             text-xl font-semibold tracking-wide
+             hover:bg-gray-100 dark:hover:bg-[#111827]
+             transition-colors"
+    >
+      Database Project
+    </a>
 
-
-        <!-- Desktop nav -->
-        <ul class="hidden md:flex items-center gap-6 text-sm font-medium">
-            <!-- Google Sheets -->
-            <li class="group relative" data-section="google-sheets">
-                <button class="nav-section-label hover:text-blue-400">
-                    Google Sheets ▾
-                </button>
-                <ul class="absolute left-0 top-full bg-gray-800 rounded-lg shadow-lg min-w-[170px]
-                 opacity-0 invisible group-hover:opacity-100 group-hover:visible
-                 transition ease-out duration-150">
-                    <li>
-                        <a href="/pages/forms/f_googlesheet.html"
-                            class="block px-4 py-2 hover:bg-gray-700 rounded-t-lg">
-                            Submit
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/pages/hiw/googlesheet.html" class="block px-4 py-2 hover:bg-gray-700 rounded-b-lg">
-                            How it works
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <!-- SQL -->
-            <li class="group relative" data-section="sql">
-                <button class="nav-section-label hover:text-blue-400">
-                    SQL ▾
-                </button>
-                <ul class="absolute left-0 top-full bg-gray-800 rounded-lg shadow-lg min-w-[170px]
-                 opacity-0 invisible group-hover:opacity-100 group-hover:visible
-                 transition ease-out duration-150">
-                    <li>
-                        <a href="/pages/forms/f_sql.html" class="block px-4 py-2 hover:bg-gray-700 rounded-t-lg">
-                            Submit
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/pages/hiw/sql.html" class="block px-4 py-2 hover:bg-gray-700 rounded-b-lg">
-                            How it works
-                        </a>
-                    </li>
-                </ul>
-            </li>
-
-            <!-- Supabase -->
-            <li class="group relative" data-section="supabase">
-                <button class="nav-section-label hover:text-blue-400">
-                    Supabase ▾
-                </button>
-                <ul class="absolute left-0 top-full bg-gray-800 rounded-lg shadow-lg min-w-[170px]
-                 opacity-0 invisible group-hover:opacity-100 group-hover:visible
-                 transition ease-out duration-150">
-                    <li>
-                        <a href="/pages/forms/f_superbase.html" class="block px-4 py-2 hover:bg-gray-700 rounded-t-lg">
-                            Submit
-                        </a>
-                    </li>
-                    <li>
-                        <a href="/pages/hiw/superbase.html" class="block px-4 py-2 hover:bg-gray-700 rounded-b-lg">
-                            How it works
-                        </a>
-                    </li>
-                </ul>
-            </li>
-        </ul>
-
-        <!-- Mobile Menu Button -->
-        <button id="navToggle"
-            class="md:hidden p-2 rounded hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
+    <!-- Desktop nav -->
+    <ul class="hidden md:flex items-center gap-6 text-sm font-medium">
+      <!-- Google Sheets -->
+      <li class="group relative" data-section="google-sheets">
+        <button class="nav-section-label hover:text-blue-400">
+          Google Sheets ▾
         </button>
-    </div>
-
-    <!-- Mobile Dropdown -->
-    <div id="mobileNav" class="hidden bg-gray-800 md:hidden">
-        <ul class="flex flex-col text-sm">
-            <li class="border-t border-gray-700" data-section="google-sheets">
-                <span class="nav-section-label block px-4 py-2 font-semibold">
-                    Google Sheets
-                </span>
-                <a href="/pages/forms/f_googlesheet.html" class="block px-6 py-2 hover:bg-gray-700">
-                    Submit
-                </a>
-                <a href="/pages/hiw/googlesheet.html" class="block px-6 py-2 hover:bg-gray-700">
-                    How it works
-                </a>
-            </li>
-
-            <li class="border-t border-gray-700" data-section="sql">
-                <span class="nav-section-label block px-4 py-2 font-semibold">
-                    SQL
-                </span>
-                <a href="/pages/forms/f_sql.html" class="block px-6 py-2 hover:bg-gray-700">
-                    Submit
-                </a>
-                <a href="/pages/hiw/sql.html" class="block px-6 py-2 hover:bg-gray-700">
-                    How it works
-                </a>
-            </li>
-
-            <li class="border-t border-gray-700 border-b" data-section="supabase">
-                <span class="nav-section-label block px-4 py-2 font-semibold">
-                    Supabase
-                </span>
-                <a href="/pages/forms/f_superbase.html" class="block px-6 py-2 hover:bg-gray-700">
-                    Submit
-                </a>
-                <a href="/pages/hiw/superbase.html" class="block px-6 py-2 hover:bg-gray-700">
-                    How it works
-                </a>
-            </li>
+        <ul
+          class="absolute left-0 top-full bg-gray-800 rounded-lg shadow-lg min-w-[170px]
+                 opacity-0 invisible group-hover:opacity-100 group-hover:visible
+                 transition ease-out duration-150"
+        >
+          <li>
+            <a
+              href="#"
+              data-href="/pages/forms/f_googlesheet.html"
+              class="block px-4 py-2 hover:bg-gray-700 rounded-t-lg"
+            >
+              Submit
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              data-href="/pages/hiw/googlesheet.html"
+              class="block px-4 py-2 hover:bg-gray-700 rounded-b-lg"
+            >
+              How it works
+            </a>
+          </li>
         </ul>
-    </div>
+      </li>
+
+      <!-- SQL -->
+      <li class="group relative" data-section="sql">
+        <button class="nav-section-label hover:text-blue-400">
+          SQL ▾
+        </button>
+        <ul
+          class="absolute left-0 top-full bg-gray-800 rounded-lg shadow-lg min-w-[170px]
+                 opacity-0 invisible group-hover:opacity-100 group-hover:visible
+                 transition ease-out duration-150"
+        >
+          <li>
+            <a
+              href="#"
+              data-href="/pages/forms/f_sql.html"
+              class="block px-4 py-2 hover:bg-gray-700 rounded-t-lg"
+            >
+              Submit
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              data-href="/pages/hiw/sql.html"
+              class="block px-4 py-2 hover:bg-gray-700 rounded-b-lg"
+            >
+              How it works
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <!-- Supabase -->
+      <li class="group relative" data-section="supabase">
+        <button class="nav-section-label hover:text-blue-400">
+          Supabase ▾
+        </button>
+        <ul
+          class="absolute left-0 top-full bg-gray-800 rounded-lg shadow-lg min-w-[170px]
+                 opacity-0 invisible group-hover:opacity-100 group-hover:visible
+                 transition ease-out duration-150"
+        >
+          <li>
+            <a
+              href="#"
+              data-href="/pages/forms/f_superbase.html"
+              class="block px-4 py-2 hover:bg-gray-700 rounded-t-lg"
+            >
+              Submit
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              data-href="/pages/hiw/superbase.html"
+              class="block px-4 py-2 hover:bg-gray-700 rounded-b-lg"
+            >
+              How it works
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+
+    <!-- Mobile Menu Button -->
+    <button
+      id="navToggle"
+      class="md:hidden p-2 rounded hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-6 w-6"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 6h16M4 12h16M4 18h16"
+        />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile Dropdown -->
+  <div id="mobileNav" class="hidden bg-gray-800 md:hidden">
+    <ul class="flex flex-col text-sm">
+      <li class="border-t border-gray-700" data-section="google-sheets">
+        <span class="nav-section-label block px-4 py-2 font-semibold">
+          Google Sheets
+        </span>
+        <a
+          href="#"
+          data-href="/pages/forms/f_googlesheet.html"
+          class="block px-6 py-2 hover:bg-gray-700"
+        >
+          Submit
+        </a>
+        <a
+          href="#"
+          data-href="/pages/hiw/googlesheet.html"
+          class="block px-6 py-2 hover:bg-gray-700"
+        >
+          How it works
+        </a>
+      </li>
+
+      <li class="border-t border-gray-700" data-section="sql">
+        <span class="nav-section-label block px-4 py-2 font-semibold">
+          SQL
+        </span>
+        <a
+          href="#"
+          data-href="/pages/forms/f_sql.html"
+          class="block px-6 py-2 hover:bg-gray-700"
+        >
+          Submit
+        </a>
+        <a
+          href="#"
+          data-href="/pages/hiw/sql.html"
+          class="block px-6 py-2 hover:bg-gray-700"
+        >
+          How it works
+        </a>
+      </li>
+
+      <li class="border-t border-gray-700 border-b" data-section="supabase">
+        <span class="nav-section-label block px-4 py-2 font-semibold">
+          Supabase
+        </span>
+        <a
+          href="#"
+          data-href="/pages/forms/f_superbase.html"
+          class="block px-6 py-2 hover:bg-gray-700"
+        >
+          Submit
+        </a>
+        <a
+          href="#"
+          data-href="/pages/hiw/superbase.html"
+          class="block px-6 py-2 hover:bg-gray-700"
+        >
+          How it works
+        </a>
+      </li>
+    </ul>
+  </div>
 </nav>

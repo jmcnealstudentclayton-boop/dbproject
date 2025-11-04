@@ -1,6 +1,5 @@
 // js/pageInserts/nav.js
 
-// Detect base path depending on environment (local vs GitHub Pages)
 const REPO_NAME = "dbproject";
 
 function getBasePath() {
@@ -9,7 +8,7 @@ function getBasePath() {
   if (path.startsWith(`/${REPO_NAME}/`)) {
     return `/${REPO_NAME}`;
   }
-  // Local dev (e.g. 127.0.0.1:5500) usually serves from project root
+  // Local dev (e.g. 127.0.0.1:5500) from project root
   return "";
 }
 
@@ -24,6 +23,9 @@ export async function loadNav() {
 
     container.innerHTML = await res.text();
     document.body.prepend(container);
+
+    // Fix all links based on PROJECT_BASE
+    rewriteNavLinks(container);
 
     // Mobile toggle
     const toggle = container.querySelector("#navToggle");
@@ -41,6 +43,16 @@ export async function loadNav() {
   }
 }
 
+function rewriteNavLinks(root) {
+  const links = root.querySelectorAll("a[data-href]");
+  links.forEach((a) => {
+    const target = a.getAttribute("data-href");
+    if (!target) return;
+    // e.g. PROJECT_BASE="/dbproject" + "/pages/forms/f_googlesheet.html"
+    a.setAttribute("href", `${PROJECT_BASE}${target}`);
+  });
+}
+
 function highlightActiveSection(root) {
   const path = window.location.pathname || "";
 
@@ -51,6 +63,9 @@ function highlightActiveSection(root) {
     section = "sql";
   } else if (path.includes("/f_superbase") || path.includes("/hiw/superbase")) {
     section = "supabase";
+  } else if (path.endsWith("/index.html") || path === `/${REPO_NAME}/` || path === `/${REPO_NAME}`) {
+    // Optional: highlight Google Sheets or nothing on home; you can tweak this
+    section = null;
   }
 
   if (!section) return;
