@@ -1,8 +1,17 @@
+// ui.js — small DOM helpers
+
 export function populateItemSelect(selectEl, products) {
   if (!selectEl) return;
+
+  // If it's not a <select>, just bail gracefully
+  if (!(selectEl instanceof HTMLSelectElement)) {
+    console.warn('[populateItemSelect] #item is not a <select>; skipping options.');
+    return;
+  }
+
   while (selectEl.options.length > 1) selectEl.remove(1);
 
-  for (const p of products) {
+  for (const p of products || []) {
     if (!p?.id) continue;
     const opt = document.createElement('option');
     opt.value = p.id;

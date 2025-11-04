@@ -3,25 +3,290 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Project Page</title>
+  <title>Database Project — Home</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="color-scheme" content="light dark" />
+  <style>
+    .code-block {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+    }
+  </style>
 </head>
-<body class="bg-gray-50 min-h-screen flex items-center justify-center">
-  <main class="text-center p-6 bg-white shadow-md rounded-xl">
-    <h1 class="text-3xl font-semibold mb-8">My Project Page</h1>
 
-    <div class="space-y-4">
-      <a href="pages/forms/f_googlesheet.html" class="block w-48 mx-auto rounded-lg bg-blue-600 text-white py-3 font-medium hover:bg-blue-700">Google Sheet Form</a>
-      <a href="pages/forms/f_superbase.html" class="block w-48 mx-auto rounded-lg bg-green-600 text-white py-3 font-medium hover:bg-green-700">Supabase Form</a>
-      <a href="pages/forms/f_sql.html" class="block w-48 mx-auto rounded-lg bg-purple-600 text-white py-3 font-medium hover:bg-purple-700">SQL Form</a>
-    </div>
-    <img class="pt-20"
-  src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=https://jmcnealstudentclayton-boop.github.io/dbproject/"
-  alt="QR code linking to project homepage"
-  width="250"
-  height="250"
-/>
+<body class="bg-gray-50 dark:bg-[#050814] min-h-screen text-gray-900 dark:text-gray-100">
 
+  <!-- MAIN CONTENT -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 space-y-12">
+
+    <!-- HERO -->
+    <section
+      class="relative overflow-hidden rounded-3xl border border-gray-200/70 dark:border-[#1f2a3a] bg-gradient-to-br from-white via-slate-50 to-blue-50 dark:from-[#060c18] dark:via-[#050a16] dark:to-[#051423] px-5 sm:px-8 py-8 sm:py-10 shadow-sm"
+    >
+      <!-- decorative blobs -->
+      <div class="pointer-events-none absolute -left-20 -top-32 h-64 w-64 rounded-full bg-blue-500/10 blur-3xl"></div>
+      <div class="pointer-events-none absolute -right-24 bottom-0 h-64 w-64 rounded-full bg-indigo-500/10 blur-3xl"></div>
+
+      <div class="relative flex flex-col lg:flex-row items-start lg:items-center gap-8">
+
+        <!-- LEFT: intro -->
+        <div class="space-y-5 lg:w-7/12">
+          <p class="text-xs font-semibold tracking-[0.25em] uppercase text-blue-500">
+            Database Project · Demo Site
+          </p>
+          <h1 class="text-3xl sm:text-4xl lg:text-[2.6rem] font-semibold tracking-tight">
+            One project, three different databases.
+          </h1>
+          <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 max-w-xl">
+            The same review app, implemented three ways:
+            <span class="font-semibold">Google Sheets + Make</span>,
+            <span class="font-semibold">Supabase</span>, and
+            <span class="font-semibold">SQL + PHP</span>.
+            Explore how data moves from the browser into each backend.
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-3">
+            <a
+              href="pages/forms/f_googlesheet.html"
+              class="inline-flex items-center justify-center px-5 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium shadow"
+            >
+              Start with Google Sheets
+            </a>
+            <a
+              href="pages/hiw/googlesheet.html"
+              class="inline-flex items-center justify-center px-4 py-2.5 rounded-xl border border-gray-300 dark:border-[#2a3950] text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-[#0f1622]"
+            >
+              View how it works
+            </a>
+          </div>
+
+          <div class="flex flex-wrap gap-3 text-[11px] text-gray-600 dark:text-gray-400">
+            <span class="inline-flex items-center gap-1 rounded-full bg-white/80 dark:bg-[#070d18] px-3 py-1 border border-gray-200/70 dark:border-[#222b3e]">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+              Google Sheets + JSONBin: live data
+            </span>
+            <span class="inline-flex items-center gap-1 rounded-full bg-white/80 dark:bg-[#070d18] px-3 py-1 border border-gray-200/70 dark:border-[#222b3e]">
+              <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
+              Supabase: cloud Postgres (visual demo)
+            </span>
+            <span class="inline-flex items-center gap-1 rounded-full bg-white/80 dark:bg-[#070d18] px-3 py-1 border border-gray-200/70 dark:border-[#222b3e]">
+              <span class="w-1.5 h-1.5 rounded-full bg-purple-400"></span>
+              SQL + PHP: local XAMPP server
+            </span>
+          </div>
+        </div>
+
+        <!-- RIGHT: QR + quick links -->
+        <div
+          class="lg:w-5/12 w-full bg-white/80 dark:bg-[#060c18] border border-gray-200/60 dark:border-[#1f2a3a] rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row lg:flex-col gap-4 items-center"
+        >
+          <div class="shrink-0">
+            <img
+              src="https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=https://jmcnealstudentclayton-boop.github.io/dbproject/"
+              alt="QR code linking to project homepage"
+              width="220"
+              height="220"
+              class="rounded-xl border border-gray-200/60 dark:border-[#1f2a3a] bg-white"
+            />
+          </div>
+          <div class="text-left space-y-2 w-full">
+            <p class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400">
+              Scan to open
+            </p>
+            <p class="text-sm text-gray-700 dark:text-gray-200">
+              Point your camera at the QR code to jump straight to this project homepage on any device.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+              <a
+                href="pages/forms/f_googlesheet.html"
+                class="inline-flex items-center justify-center rounded-lg border border-blue-500/60 text-blue-600 dark:text-blue-300 bg-blue-50/70 dark:bg-[#061326] px-2 py-1.5 hover:bg-blue-100/80 dark:hover:bg-[#0b1730]"
+              >
+                GS Form
+              </a>
+              <a
+                href="pages/forms/f_superbase.html"
+                class="inline-flex items-center justify-center rounded-lg border border-emerald-500/60 text-emerald-700 dark:text-emerald-200 bg-emerald-50/70 dark:bg-[#031a16] px-2 py-1.5 hover:bg-emerald-100/80 dark:hover:bg-[#05231e]"
+              >
+                Supabase Form
+              </a>
+              <a
+                href="pages/forms/f_sql.html"
+                class="inline-flex items-center justify-center rounded-lg border border-purple-500/60 text-purple-700 dark:text-purple-200 bg-purple-50/70 dark:bg-[#170626] px-2 py-1.5 hover:bg-purple-100/80 dark:hover:bg-[#230634]"
+              >
+                SQL Form
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PATH CARDS -->
+    <section class="space-y-6">
+      <div class="flex items-center justify-between gap-4">
+        <div>
+          <p class="text-xs font-semibold tracking-[0.2em] uppercase text-blue-500 mb-1">
+            Choose a path
+          </p>
+          <h2 class="text-xl sm:text-2xl font-semibold tracking-tight">
+            Same reviews, different backends.
+          </h2>
+          <p class="text-sm text-gray-600 dark:text-gray-300 max-w-2xl">
+            Each path handles the same “submit a review” flow, but the tech and trade-offs are different.
+            Use this as a side-by-side comparison when presenting.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid gap-5 md:grid-cols-3">
+        <!-- Google Sheets / Make -->
+        <article class="rounded-2xl border border-gray-200/70 dark:border-[#1f2a3a] bg-white dark:bg-[#0f1622] p-5 flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-blue-500">
+              <span class="w-2 h-2 rounded-full bg-blue-500"></span>
+              Google Sheets + Make
+            </div>
+            <h3 class="text-lg font-semibold">No server, all automation.</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300">
+              Web form → Make webhook → Google Sheets → JSONBin. The live site reads JSON and draws real-time summaries.
+            </p>
+            <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-1 mt-2">
+              <li>• Easiest to deploy (GitHub Pages friendly)</li>
+              <li>• Great for demos & quick dashboards</li>
+              <li>• Limited by sheet size & API calls</li>
+            </ul>
+          </div>
+          <div class="mt-4 flex flex-wrap gap-2 text-xs">
+            <a
+              href="pages/forms/f_googlesheet.html"
+              class="inline-flex items-center justify-center px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium"
+            >
+              Open form
+            </a>
+            <a
+              href="pages/hiw/googlesheet.html"
+              class="inline-flex items-center justify-center px-3 py-1.5 rounded-lg border border-gray-300 dark:border-[#2a3950] hover:bg-gray-50 dark:hover:bg-[#101827]"
+            >
+              How it works
+            </a>
+          </div>
+        </article>
+
+        <!-- Supabase -->
+        <article class="rounded-2xl border border-gray-200/70 dark:border-[#1f2a3a] bg-white dark:bg-[#0f1622] p-5 flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-emerald-500">
+              <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+              Supabase
+            </div>
+            <h3 class="text-lg font-semibold">Hosted Postgres with batteries included.</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300">
+              Real database in the cloud with auth, row-level security, and SQL. This project mirrors the same review schema.
+            </p>
+            <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-1 mt-2">
+              <li>• Strong choice for production apps</li>
+              <li>• SQL + REST + realtime subscriptions</li>
+              <li>• Needs key management & backend rules</li>
+            </ul>
+          </div>
+          <div class="mt-4 flex flex-wrap gap-2 text-xs">
+            <a
+              href="pages/forms/f_superbase.html"
+              class="inline-flex items-center justify-center px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-medium"
+            >
+              Open form
+            </a>
+            <a
+              href="pages/hiw/superbase.html"
+              class="inline-flex items-center justify-center px-3 py-1.5 rounded-lg border border-gray-300 dark:border-[#2a3950] hover:bg-gray-50 dark:hover:bg-[#101827]"
+            >
+              How it works
+            </a>
+          </div>
+        </article>
+
+        <!-- SQL + PHP -->
+        <article class="rounded-2xl border border-gray-200/70 dark:border-[#1f2a3a] bg-white dark:bg-[#0f1622] p-5 flex flex-col justify-between">
+          <div class="space-y-3">
+            <div class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-purple-400">
+              <span class="w-2 h-2 rounded-full bg-purple-400"></span>
+              SQL + PHP (XAMPP)
+            </div>
+            <h3 class="text-lg font-semibold">Classic LAMP-style stack, local only.</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-300">
+              MySQL schema, views, and a small PHP script running on XAMPP. Perfect for learning how web servers talk to databases.
+            </p>
+            <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-1 mt-2">
+              <li>• Full control over SQL & constraints</li>
+              <li>• Requires local server, not GitHub-friendly</li>
+              <li>• Great for explaining backend flow</li>
+            </ul>
+          </div>
+          <div class="mt-4 flex flex-wrap gap-2 text-xs">
+            <a
+              href="pages/forms/f_sql.html"
+              class="inline-flex items-center justify-center px-3 py-1.5 rounded-lg bg-purple-600 hover:bg-purple-700 text-white font-medium"
+            >
+              Open demo form
+            </a>
+            <a
+              href="pages/hiw/sql.html"
+              class="inline-flex items-center justify-center px-3 py-1.5 rounded-lg border border-gray-300 dark:border-[#2a3950] hover:bg-gray-50 dark:hover:bg-[#101827]"
+            >
+              How it works
+            </a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- QUICK COMPARISON -->
+    <section class="rounded-2xl border border-gray-200/70 dark:border-[#1f2a3a] bg-white dark:bg-[#0f1622] p-5 sm:p-6">
+      <h2 class="text-lg sm:text-xl font-semibold mb-3">At a glance</h2>
+      <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+        A lightweight summary of when you might reach for each approach in a real project.
+      </p>
+      <div class="overflow-x-auto">
+        <table class="min-w-full text-xs sm:text-sm border-collapse">
+          <thead class="bg-gray-100 dark:bg-[#060b15] text-gray-600 dark:text-gray-300">
+            <tr>
+              <th class="px-3 sm:px-4 py-2 text-left font-semibold">Stack</th>
+              <th class="px-3 sm:px-4 py-2 text-left font-semibold">Best for</th>
+              <th class="px-3 sm:px-4 py-2 text-left font-semibold hidden sm:table-cell">Pros</th>
+              <th class="px-3 sm:px-4 py-2 text-left font-semibold hidden md:table-cell">Trade-offs</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200/70 dark:divide-[#1f2a3a]">
+            <tr>
+              <td class="px-3 sm:px-4 py-2 font-semibold">Google Sheets + Make</td>
+              <td class="px-3 sm:px-4 py-2">Low-code demos, quick prototypes</td>
+              <td class="px-3 sm:px-4 py-2 hidden sm:table-cell">No server, easy to visualize, great for non-devs</td>
+              <td class="px-3 sm:px-4 py-2 hidden md:table-cell">Scaling & structure limited to Sheets</td>
+            </tr>
+            <tr>
+              <td class="px-3 sm:px-4 py-2 font-semibold">Supabase</td>
+              <td class="px-3 sm:px-4 py-2">Serious apps with auth & APIs</td>
+              <td class="px-3 sm:px-4 py-2 hidden sm:table-cell">Managed Postgres, rich features, modern tooling</td>
+              <td class="px-3 sm:px-4 py-2 hidden md:table-cell">More config (keys, security rules, pricing)</td>
+            </tr>
+            <tr>
+              <td class="px-3 sm:px-4 py-2 font-semibold">SQL + PHP (XAMPP)</td>
+              <td class="px-3 sm:px-4 py-2">Learning full server flow, local experiments</td>
+              <td class="px-3 sm:px-4 py-2 hidden sm:table-cell">Total control, classic stack, great teaching tool</td>
+              <td class="px-3 sm:px-4 py-2 hidden md:table-cell">Not deployable on GitHub Pages; more setup</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
   </main>
+
+  <!-- NAV + FOOTER -->
+  <script type="module">
+    import { loadNav } from "./js/pageInserts/nav.js";
+    import { loadFooter } from "./js/pageInserts/footer.js";
+    loadNav();
+    loadFooter();
+  </script>
 </body>
 </html>

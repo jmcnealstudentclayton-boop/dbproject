@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How It Works — SQL Review Database</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="color-scheme" content="light dark">
+  <style>
+    .step-dot {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .code-block {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 dark:bg-[#0b0f14] min-h-screen text-gray-900 dark:text-gray-100">
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-10">
+
+    <!-- HERO + TIMELINE -->
+    <section class="bg-white dark:bg-[#0f1622] border border-gray-200/70 dark:border-[#1f2a3a] rounded-2xl p-6 sm:p-8 shadow-sm">
+      <div class="flex flex-col lg:flex-row gap-8 lg:gap-10">
+        <!-- LEFT -->
+        <div class="lg:w-4/12">
+          <p class="text-xs font-semibold tracking-[0.22em] uppercase text-blue-500 mb-2">
+            SQL · Local MySQL Demo
+          </p>
+          <h1 class="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight mb-4">
+            How the SQL Review Database Works
+          </h1>
+          <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300">
+            This project used a local MySQL database, dBeaver, and PHP running on XAMPP
+            to build a fully relational review system — from schema design to a working
+            web form.
+          </p>
+        </div>
+
+        <!-- RIGHT: TWO-COLUMN TIMELINE -->
+        <div class="lg:w-8/12 grid grid-cols-1 md:grid-cols-2 gap-x-8 border-l border-gray-200/60 dark:border-[#273248] pl-5 relative">
+
+          <!-- Column 1 -->
+          <div class="space-y-6 relative before:content-[''] before:absolute before:top-0 before:left-[2px] before:w-px before:h-full before:bg-gray-200/60 dark:before:bg-[#273248]">
+            <!-- Step 1 -->
+            <div class="relative">
+              <span class="step-dot w-7 h-7 bg-blue-600 text-white absolute -left-3">1</span>
+              <div class="ml-6">
+                <p class="text-xs font-semibold uppercase tracking-wide">Create Local DB Connection</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">
+                  Use dBeaver to connect to a MySQL server running on the local machine.
+                </p>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="relative">
+              <span class="step-dot w-7 h-7 bg-blue-600 text-white absolute -left-3">2</span>
+              <div class="ml-6">
+                <p class="text-xs font-semibold uppercase tracking-wide">Create Database</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">
+                  Run SQL to create and open the database:
+                </p>
+                <pre class="code-block text-[11px] bg-gray-100 dark:bg-[#05080d] border border-gray-200/70 dark:border-[#1f2a3a] rounded-md px-2 py-1 whitespace-pre overflow-x-auto">
+CREATE DATABASE review_app;
+USE review_app;</pre>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="relative">
+              <span class="step-dot w-7 h-7 bg-blue-600 text-white absolute -left-3">3</span>
+              <div class="ml-6">
+                <p class="text-xs font-semibold uppercase tracking-wide">Define Core Tables</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">
+                  Create <span class="font-semibold">customers</span>, <span class="font-semibold">items</span>, and
+                  <span class="font-semibold">reviews</span> tables with proper data types and constraints.
+                </p>
+              </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="relative">
+              <span class="step-dot w-7 h-7 bg-blue-600 text-white absolute -left-3">4</span>
+              <div class="ml-6">
+                <p class="text-xs font-semibold uppercase tracking-wide">Add Indexes</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mb-1">
+                  Index foreign keys to speed up lookups:
+                </p>
+                <pre class="code-block text-[11px] bg-gray-100 dark:bg-[#05080d] border border-gray-200/70 dark:border-[#1f2a3a] rounded-md px-2 py-1 whitespace-pre overflow-x-auto">
+CREATE INDEX idx_reviews_item
+  ON reviews(item_id);
+
+CREATE INDEX idx_reviews_customer
+  ON reviews(customer_id);</pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 2 -->
+          <div class="space-y-6 relative before:content-[''] before:absolute before:top-0 before:left-[2px] before:w-px before:h-full before:bg-gray-200/60 dark:before:bg-[#273248]">
+            <!-- Step 5 -->
+            <div class="relative">
+              <span class="step-dot w-7 h-7 bg-blue-600 text-white absolute -left-3">5</span>
+              <div class="ml-6">
+                <p class="text-xs font-semibold uppercase tracking-wide">Create Summary Views</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">
+                  Use SQL views to aggregate per–item and per–customer stats without duplicating data.
+                </p>
+              </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="relative">
+              <span class="step-dot w-7 h-7 bg-blue-600 text-white absolute -left-3">6</span>
+              <div class="ml-6">
+                <p class="text-xs font-semibold uppercase tracking-wide">Set Up XAMPP + PHP</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">
+                  Run Apache and MySQL via XAMPP, and place PHP files in the web root so they can talk to the database.
+                </p>
+              </div>
+            </div>
+
+            <!-- Step 7 -->
+            <div class="relative">
+              <span class="step-dot w-7 h-7 bg-blue-600 text-white absolute -left-3">7</span>
+              <div class="ml-6">
+                <p class="text-xs font-semibold uppercase tracking-wide">Wire Up the Web Form</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">
+                  The HTML form posts to PHP, which validates input, runs SQL INSERTs, and returns success or error messages.
+                </p>
+              </div>
+            </div>
+
+            <!-- Step 8 -->
+            <div class="relative">
+              <span class="step-dot w-7 h-7 bg-blue-600 text-white absolute -left-3">8</span>
+              <div class="ml-6">
+                <p class="text-xs font-semibold uppercase tracking-wide">Understand Hosting Limits</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">
+                  On GitHub Pages we can’t run PHP or MySQL, so the SQL form on this project is shown as a visual demo only.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- NEW SECTION: LOCAL SETUP (XAMPP + DBEAVER + DB CREATION) -->
+    <section class="grid md:grid-cols-2 gap-6 items-start">
+      <div class="bg-white dark:bg-[#0f1622] border border-gray-200/70 dark:border-[#1f2a3a] rounded-2xl p-6 sm:p-7 shadow-sm">
+        <p class="text-xs font-semibold tracking-[0.25em] uppercase text-blue-500 mb-2">
+          Local Environment
+        </p>
+        <h2 class="text-xl sm:text-2xl font-semibold mb-3">XAMPP, MySQL, and dBeaver Connection</h2>
+        <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">
+          Before designing any tables, we needed a local database server and a way to connect to it.
+          That’s where <span class="font-semibold">XAMPP</span> and <span class="font-semibold">dBeaver</span> came in.
+        </p>
+        <ul class="text-sm text-gray-700 dark:text-gray-200 space-y-1 mb-4">
+          <li>• XAMPP runs <span class="font-semibold">Apache</span> (web server) and <span class="font-semibold">MySQL</span> locally.</li>
+          <li>• dBeaver connects to that MySQL instance on <span class="code-block">localhost:3306</span>.</li>
+          <li>• From there we can create databases, tables, and run SQL visually.</li>
+        </ul>
+        <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">
+          With MySQL running in XAMPP, we created a new connection in dBeaver using:
+        </p>
+        <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-1 mb-3">
+          <li>• <span class="font-semibold">Server Host:</span> <span class="code-block">localhost</span></li>
+          <li>• <span class="font-semibold">Port:</span> <span class="code-block">3306</span></li>
+          <li>• <span class="font-semibold">Username:</span> <span class="code-block">root</span> (default)</li>
+          <li>• <span class="font-semibold">Password:</span> XAMPP MySQL password</li>
+        </ul>
+        <p class="text-xs text-gray-500 dark:text-gray-400">
+          XAMPP is critical in this setup because it provides both the
+          <span class="font-semibold">database server</span> (MySQL) and the
+          <span class="font-semibold">web server</span> (Apache) that PHP needs.
+          Without it, the PHP files couldn’t talk to MySQL, and the SQL review app wouldn’t run.
+        </p>
+      </div>
+
+      <div class="space-y-4">
+        <!-- XAMPP screenshot -->
+        <div class="rounded-2xl overflow-hidden border border-gray-200/70 dark:border-[#1f2a3a] bg-gray-100 dark:bg-[#05080d] flex items-center justify-center p-4">
+          <img
+            src="/assets/hiw/SQL/xampp.JPG"
+            alt="Placeholder: XAMPP control panel showing Apache and MySQL running"
+            class="max-h-64 w-full object-contain"
+          />
+        </div>
+        <!-- dBeaver connection screenshot -->
+        <div class="rounded-2xl overflow-hidden border border-gray-200/70 dark:border-[#1f2a3a] bg-gray-100 dark:bg-[#05080d] flex items-center justify-center p-4">
+          <img
+            src="/assets/hiw/SQL/dbeaver.JPG"
+            alt="Placeholder: dBeaver MySQL connection settings for localhost"
+            class="max-h-64 w-full object-contain"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION: TABLE DESIGN -->
+    <section class="grid md:grid-cols-2 gap-6 items-start">
+      <div class="bg-white dark:bg-[#0f1622] border border-gray-200/70 dark:border-[#1f2a3a] rounded-2xl p-6 sm:p-7 shadow-sm">
+        <p class="text-xs font-semibold tracking-[0.25em] uppercase text-blue-500 mb-2">
+          Schema Design
+        </p>
+        <h2 class="text-xl sm:text-2xl font-semibold mb-3">Customers &amp; Items Tables</h2>
+        <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">
+          We created normalized tables for people and products. Each row gets an auto-incrementing ID and timestamps.
+        </p>
+        <pre class="code-block text-[11px] sm:text-xs bg-gray-100 dark:bg-[#05080d] border border-gray-200/70 dark:border-[#1f2a3a] rounded-lg px-3 py-3 max-w-[22rem] max-h-72 overflow-auto mb-3">
+CREATE TABLE customers (
+  customer_id BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  first_name  VARCHAR(60)  NOT NULL,
+  last_name   VARCHAR(60)  NOT NULL,
+  email       VARCHAR(255) NOT NULL UNIQUE,
+  created_at  TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE items (
+  item_id    BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  item_name  VARCHAR(150) NOT NULL,
+  item_cost  DECIMAL(10,2) NOT NULL DEFAULT 0.00,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);</pre>
+        <p class="text-xs text-gray-500 dark:text-gray-400">
+          Emails are unique, item costs are stored as decimals, and creation timestamps default to the current time.
+        </p>
+      </div>
+
+      <!-- Placeholder: screenshot of dBeaver tables -->
+      <div class="rounded-2xl overflow-hidden border border-gray-200/70 dark:border-[#1f2a3a] bg-gray-100 dark:bg-[#05080d] flex items-center justify-center p-4">
+        <img
+          src="/assets/hiw/SQL/cttables.JPG"
+          alt="Placeholder: dBeaver screenshot showing customers, items, and reviews tables"
+          class="max-h-72 w-full object-contain"
+        />
+      </div>
+    </section>
+
+    <!-- SECTION: REVIEWS TABLE & CONSTRAINTS -->
+    <section class="grid md:grid-cols-2 gap-6 items-start">
+      <!-- Placeholder ERD -->
+      <div class="rounded-2xl overflow-hidden border border-gray-200/70 dark:border-[#1f2a3a] bg-gray-100 dark:bg-[#05080d] flex items-center justify-center p-4">
+        <img
+          src="/assets/hiw/SQL/rtables.JPG"
+          alt="Placeholder: ERD diagram showing relationships between reviews, customers, and items"
+          class="max-h-72 w-full object-contain"
+        />
+      </div>
+
+      <div class="bg-white dark:bg-[#0f1622] border border-gray-200/70 dark:border-[#1f2a3a] rounded-2xl p-6 sm:p-7 shadow-sm">
+        <p class="text-xs font-semibold tracking-[0.25em] uppercase text-blue-500 mb-2">
+          Relationships &amp; Constraints
+        </p>
+        <h2 class="text-xl sm:text-2xl font-semibold mb-3">Reviews Table &amp; Business Rules</h2>
+        <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">
+          The <span class="font-semibold">reviews</span> table ties everything together with foreign keys and checks.
+        </p>
+        <pre class="code-block text-[11px] sm:text-xs bg-gray-100 dark:bg-[#05080d] border border-gray-200/70 dark:border-[#1f2a3a] rounded-lg px-3 py-3 max-w-[22rem] max-h-80 overflow-auto mb-3">
+CREATE TABLE reviews (
+  review_id   BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+  customer_id BIGINT UNSIGNED NOT NULL,
+  item_id     BIGINT UNSIGNED NOT NULL,
+  star_score  TINYINT UNSIGNED NOT NULL,
+  review_text TEXT,
+  review_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_reviews_customer
+    FOREIGN KEY (customer_id)
+    REFERENCES customers(customer_id)
+    ON DELETE CASCADE,
+  CONSTRAINT fk_reviews_item
+    FOREIGN KEY (item_id)
+    REFERENCES items(item_id)
+    ON DELETE CASCADE,
+  CONSTRAINT ck_reviews_star_score
+    CHECK (star_score BETWEEN 1 AND 5),
+  CONSTRAINT uq_reviews_customer_item
+    UNIQUE (customer_id, item_id)
+);</pre>
+        <ul class="text-xs text-gray-500 dark:text-gray-400 space-y-1">
+          <li>• <span class="font-semibold">ON DELETE CASCADE</span> removes reviews if a customer or item is deleted.</li>
+          <li>• <span class="font-semibold">CHECK</span> constraint enforces star scores between 1 and 5.</li>
+          <li>• <span class="font-semibold">UNIQUE (customer_id, item_id)</span> allows one review per customer per item.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- SECTION: VIEWS -->
+    <section class="bg-white dark:bg-[#0f1622] border border-gray-200/70 dark:border-[#1f2a3a] rounded-2xl p-6 sm:p-7 shadow-sm">
+      <div class="flex flex-col lg:flex-row gap-6">
+        <div class="flex-1">
+          <p class="text-xs font-semibold tracking-[0.25em] uppercase text-blue-500 mb-2">
+            Summary Views
+          </p>
+          <h2 class="text-xl sm:text-2xl font-semibold mb-3">Item &amp; Customer Review Summaries</h2>
+          <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">
+            Instead of storing summary data in separate tables, we used SQL <span class="font-semibold">views</span>.
+            These are saved queries that recalculate results whenever you query them.
+          </p>
+          <pre class="code-block text-[11px] sm:text-xs bg-gray-100 dark:bg-[#05080d] border border-gray-200/70 dark:border-[#1f2a3a] rounded-lg px-3 py-3 max-h-64 overflow-auto mb-3">
+CREATE VIEW v_item_review_summary AS
+SELECT
+  i.item_id,
+  i.item_name,
+  COUNT(r.review_id) AS reviews_count,
+  AVG(r.star_score)  AS avg_score,
+  MIN(r.review_date) AS first_review_at,
+  MAX(r.review_date) AS last_review_at
+FROM items i
+LEFT JOIN reviews r ON r.item_id = i.item_id
+GROUP BY i.item_id, i.item_name;</pre>
+
+          <pre class="code-block text-[11px] sm:text-xs bg-gray-100 dark:bg-[#05080d] border border-gray-200/70 dark:border-[#1f2a3a] rounded-lg px-3 py-3 max-h-64 overflow-auto">
+CREATE VIEW v_customer_review_summary AS
+SELECT
+  c.customer_id,
+  CONCAT(c.first_name,' ',c.last_name) AS customer_name,
+  COUNT(r.review_id)                    AS reviews_count
+FROM customers c
+LEFT JOIN reviews r ON r.customer_id = c.customer_id
+GROUP BY c.customer_id, customer_name;</pre>
+        </div>
+
+        <!-- Placeholder: screenshot of views output -->
+        <div class="flex-1 rounded-2xl overflow-hidden border border-gray-200/70 dark:border-[#1f2a3a] bg-gray-100 dark:bg-[#05080d] flex items-center justify-center p-4">
+          <img
+            src="/assets/hiw/SQL/vtable.JPG"
+            alt="Placeholder: screenshot of item and customer review summary views"
+            class="max-h-72 w-full object-contain"
+          />
+        </div>
+      </div>
+    </section>
+
+
+    
+        <!-- SECTION: PHP + XAMPP FLOW -->
+    <section class="grid md:grid-cols-2 gap-6 items-center">
+      <div class="rounded-2xl overflow-hidden border border-gray-200/70 dark:border-[#1f2a3a] bg-gray-100 dark:bg-[#05080d] flex items-center justify-center p-4">
+        <img
+          src="/assets/hiw/SQL/flow.png"
+          alt="Placeholder: diagram of Browser → Apache → PHP → MySQL stack"
+          class="max-h-72 w-full object-contain"
+        />
+      </div>
+
+      <div class="bg-white dark:bg-[#0f1622] border border-gray-200/70 dark:border-[#1f2a3a] rounded-2xl p-6 sm:p-7 shadow-sm">
+        <p class="text-xs font-semibold tracking-[0.25em] uppercase text-blue-500 mb-2">
+          Server Stack
+        </p>
+        <h2 class="text-xl sm:text-2xl font-semibold mb-3">How the Web Form Talks to MySQL</h2>
+        <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">
+          With XAMPP running locally, the data flow looked like this:
+        </p>
+        <p class="code-block text-xs bg-gray-100 dark:bg-[#05080d] border border-gray-200/70 dark:border-[#1f2a3a] rounded-lg px-3 py-2 mb-3">
+Browser (HTML / CSS / JS)
+    ⇅
+Apache (web server)
+    ⇅
+PHP (submit_review.php)
+    ⇅
+MySQL (review_app database)</p>
+
+        <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">
+          The PHP file does three simple things:
+        </p>
+        <ol class="list-decimal pl-5 text-xs text-gray-600 dark:text-gray-300 space-y-1 mb-3">
+          <li>Connects to MySQL using <span class="code-block">$mysqli = new mysqli(...);</span></li>
+          <li>Inserts or updates the customer row based on their email.</li>
+          <li>Inserts a review row that links the customer and item with a star score.</li>
+        </ol>
+
+        <p class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-1">
+          Tiny PHP Example
+        </p>
+        <pre class="code-block text-[11px] bg-gray-100 dark:bg-[#05080d] border border-gray-200/70 dark:border-[#1f2a3a] rounded-lg px-3 py-2 max-w-[22rem] max-h-56 overflow-auto">
+&lt;?php
+$mysqli = new mysqli("localhost", "root", "", "review_app");
+
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+  $first = $_POST["firstName"];
+  $last  = $_POST["lastName"];
+  $email = $_POST["email"];
+  $item  = (int) $_POST["itemId"];
+  $stars = (int) $_POST["rating"];
+
+  // Save customer (email is UNIQUE)
+  $mysqli-&gt;query("
+    INSERT INTO customers (first_name, last_name, email)
+    VALUES ('$first', '$last', '$email')
+    ON DUPLICATE KEY UPDATE
+      first_name = VALUES(first_name),
+      last_name  = VALUES(last_name)
+  ");
+
+  // Get customer_id
+  $result = $mysqli-&gt;query("SELECT customer_id FROM customers WHERE email = '$email'");
+  $row = $result-&gt;fetch_assoc();
+  $customerId = $row["customer_id"];
+
+  // Save review
+  $mysqli-&gt;query("
+    INSERT INTO reviews (customer_id, item_id, star_score)
+    VALUES ($customerId, $item, $stars)
+  ");
+}
+?&gt;</pre>
+
+        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
+          The real project uses prepared statements for safety and a nicer layout with Tailwind,
+          but the idea is this simple: PHP turns form fields into SQL that MySQL understands.
+        </p>
+      </div>
+    </section>
+
+
+  </main>
+
+  <!-- NAV + FOOTER -->
+  <script type="module">
+    import { loadNav } from "../../js/pageInserts/nav.js";
+    import { loadFooter } from "../../js/pageInserts/footer.js";
+    loadNav();
+    loadFooter();
+  </script>
+</body>
+</html>

@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How It Works — Google Sheets Review Database</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="color-scheme" content="light dark">
+  <style>
+    .step-dot {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 9999px;
+      font-size: 0.75rem; /* text-xs */
+      font-weight: 600;   /* font-semibold */
+    }
+    .code-block {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 dark:bg-[#0b0f14] min-h-screen text-gray-900 dark:text-gray-100">
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-10">
+
+    <!-- HERO -->
+<section class="bg-white dark:bg-[#0f1622] border border-gray-200/70 dark:border-[#1f2a3a] rounded-2xl p-6 sm:p-8 shadow-sm">
+  <div class="flex flex-col lg:flex-row gap-8 lg:gap-10">
+    <!-- LEFT: INTRO -->
+    <div class="lg:w-4/12">
+      <p class="text-xs font-semibold tracking-[0.22em] uppercase text-blue-500 mb-2">
+        Google Sheets · Demo Database
+      </p>
+      <h1 class="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight mb-4">
+        How the Google Sheets Review Database Works
+      </h1>
+      <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300">
+        This flow turns a simple web form into a live review database using
+        <span class="font-semibold">Make</span>, <span class="font-semibold">Google Sheets</span>,
+        and <span class="font-semibold">JSONBin</span>.  
+        Below is the full journey, from planning the data model to live visuals.
+      </p>
+    </div>
+
+    <!-- RIGHT: DUAL COLUMN TIMELINE -->
+    <div class="lg:w-8/12 grid grid-cols-1 md:grid-cols-2 gap-x-8 border-l border-gray-200/60 dark:border-[#273248] pl-5 relative">
+
+      <!-- COLUMN 1 -->
+      <div class="space-y-6 relative before:content-[''] before:absolute before:top-0 before:left-[2px] before:w-px before:h-full before:bg-gray-200/60 dark:before:bg-[#273248]">
+        <!-- Step 0 -->
+        <div class="relative">
+          <span class="step-dot w-7 h-7 bg-blue-600 text-white absolute -left-3 flex items-center justify-center">0</span>
+          <div class="ml-6">
+            <p class="text-xs font-semibold uppercase tracking-wide">Plan Data Fields</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">
+              Decide which review, customer, and item details to store.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 1 -->
+        <div class="relative">
+          <span class="step-dot w-7 h-7 bg-blue-600 text-white absolute -left-3 flex items-center justify-center">1</span>
+          <div class="ml-6">
+            <p class="text-xs font-semibold uppercase tracking-wide">Normalize into Sheets</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">
+              Split data into Reviews, Customers, Items, and summary tables.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="relative">
+          <span class="step-dot w-7 h-7 bg-blue-600 text-white absolute -left-3 flex items-center justify-center">2</span>
+          <div class="ml-6">
+            <p class="text-xs font-semibold uppercase tracking-wide">Draw the ERD</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">
+              Map table relationships using <code class="code-block">customer_id</code> and <code class="code-block">item_id</code>.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="relative">
+          <span class="step-dot w-7 h-7 bg-blue-600 text-white absolute -left-3 flex items-center justify-center">3</span>
+          <div class="ml-6">
+            <p class="text-xs font-semibold uppercase tracking-wide">User Submits Form</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">
+              Customer enters product, rating, and review details on the website.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- COLUMN 2 -->
+      <div class="space-y-6 relative before:content-[''] before:absolute before:top-0 before:left-[2px] before:w-px before:h-full before:bg-gray-200/60 dark:before:bg-[#273248]">
+        <!-- Step 4 -->
+        <div class="relative">
+          <span class="step-dot w-7 h-7 bg-blue-600 text-white absolute -left-3 flex items-center justify-center">4</span>
+          <div class="ml-6">
+            <p class="text-xs font-semibold uppercase tracking-wide">Make Webhook & Metadata</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">
+              Make receives the data, creates IDs, and timestamps.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="relative">
+          <span class="step-dot w-7 h-7 bg-blue-600 text-white absolute -left-3 flex items-center justify-center">5</span>
+          <div class="ml-6">
+            <p class="text-xs font-semibold uppercase tracking-wide">Store in Google Sheets</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">
+              The data becomes a new row in the Reviews sheet with generated IDs.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 6 -->
+        <div class="relative">
+          <span class="step-dot w-7 h-7 bg-blue-600 text-white absolute -left-3 flex items-center justify-center">6</span>
+          <div class="ml-6">
+            <p class="text-xs font-semibold uppercase tracking-wide">Export JSON to JSONBin</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">
+              Make converts rows into JSON and updates the bin automatically.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 7 -->
+        <div class="relative">
+          <span class="step-dot w-7 h-7 bg-blue-600 text-white absolute -left-3 flex items-center justify-center">7</span>
+          <div class="ml-6">
+            <p class="text-xs font-semibold uppercase tracking-wide">Website Live Visuals</p>
+            <p class="text-xs text-gray-500 dark:text-gray-400">
+              The site fetches JSON and renders product & customer summaries in real time.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+
+    <!-- STEP 0: PLAN DATA STRUCTURE -->
+    <section class="grid md:grid-cols-2 gap-6 items-center">
+      <div class="bg-white dark:bg-[#0f1622] border border-gray-200/70 dark:border-[#1f2a3a] rounded-2xl p-6 sm:p-7 shadow-sm">
+        <p class="text-xs font-semibold tracking-[0.25em] uppercase text-blue-500 mb-2">Step 0</p>
+        <h2 class="text-xl sm:text-2xl font-semibold mb-3">Planning the Data Fields</h2>
+        <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+          Before anything was built, we first listed what kind of information we wanted to collect and connect.
+        </p>
+        <ul class="text-sm text-gray-700 dark:text-gray-200 space-y-1 mb-4">
+          <li>• Review ID, Product ID, Customer Info</li>
+          <li>• Ratings &amp; Review Text</li>
+          <li>• Item Details (Item Name, Cost)</li>
+          <li>• Dates &amp; Summary Stats</li>
+        </ul>
+        <p class="text-sm text-gray-500 dark:text-gray-400">
+          This helped define what the <span class="font-semibold">columns</span> and <span class="font-semibold">tables</span> would be later in Google Sheets.
+        </p>
+      </div>
+
+      <div class="rounded-2xl overflow-hidden border border-gray-200/70 dark:border-[#1f2a3a] bg-gray-100 dark:bg-[#05080d] flex items-center justify-center p-4">
+        <img src="/assets/hiw/gSheets/gSheet02.JPG" alt="Placeholder: initial list of data fields" class="max-h-72 w-full object-contain">
+      </div>
+    </section>
+
+    <!-- STEP 1: NORMALIZATION -->
+    <section class="bg-white dark:bg-[#0f1622] border border-gray-200/70 dark:border-[#1f2a3a] rounded-2xl p-6 sm:p-7 shadow-sm">
+      <div class="flex flex-col lg:flex-row gap-6">
+        <div class="flex-1">
+          <p class="text-xs font-semibold tracking-[0.25em] uppercase text-blue-500 mb-2">Step 1</p>
+          <h2 class="text-xl sm:text-2xl font-semibold mb-3">Normalizing Data in Google Sheets</h2>
+          <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">
+            We then split the data into several related sheets (tables) to follow database normalization rules.
+          </p>
+          <ul class="text-sm text-gray-700 dark:text-gray-200 space-y-1 mb-4">
+            <li>• <span class="font-semibold">Reviews</span> — where form submissions go</li>
+            <li>• <span class="font-semibold">Customers</span> — stores user info and creation date</li>
+            <li>• <span class="font-semibold">Items</span> — holds product details</li>
+            <li>• <span class="font-semibold">Customer Review Summary</span> — counts total reviews per customer</li>
+            <li>• <span class="font-semibold">Item Review Summary</span> — average score, total reviews, first/last review date</li>
+          </ul>
+          <p class="text-xs text-gray-500 dark:text-gray-400">
+            Each sheet is connected through shared IDs like <code class="font-mono text-blue-500">customer_id</code> and <code class="font-mono text-blue-500">item_id</code>.
+          </p>
+        </div>
+
+        <div class="flex-1 rounded-2xl overflow-hidden border border-gray-200/70 dark:border-[#1f2a3a] bg-gray-100 dark:bg-[#05080d] flex items-center justify-center p-4">
+          <img src="/assets/hiw/gSheets/gSheet03.JPG" alt="Placeholder: screenshot of normalized Google Sheets tables" class="max-h-72 w-full object-contain">
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 2: ERD RELATIONSHIP -->
+    <section class="grid md:grid-cols-2 gap-6 items-center">
+      <div class="rounded-2xl overflow-hidden border border-gray-200/70 dark:border-[#1f2a3a] bg-gray-100 dark:bg-[#05080d] flex items-center justify-center p-4">
+        <img src="/assets/hiw/gSheets/norm.JPG" alt="Placeholder: ERD diagram showing table relationships" class="max-h-72 w-full object-contain">
+      </div>
+
+      <div class="bg-white dark:bg-[#0f1622] border border-gray-200/70 dark:border-[#1f2a3a] rounded-2xl p-6 sm:p-7 shadow-sm">
+        <p class="text-xs font-semibold tracking-[0.25em] uppercase text-blue-500 mb-2">Step 2</p>
+        <h2 class="text-xl sm:text-2xl font-semibold mb-3">Building the ERD (Entity Relationship Diagram)</h2>
+        <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">
+          With the tables ready, we visualized their relationships using <span class="font-semibold">Draw.io</span>.
+        </p>
+        <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">
+          Each entity (sheet) connects via primary and foreign keys, ensuring structured, linked data — similar to a SQL relational database.
+        </p>
+        <ul class="text-sm text-gray-700 dark:text-gray-200 space-y-1 mb-4">
+          <li>• <code class="font-mono text-blue-500">customer_id</code> connects reviews ↔ customers</li>
+          <li>• <code class="font-mono text-blue-500">item_id</code> connects reviews ↔ items</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- STEP 3: WEB FORM -->
+    <section class="grid md:grid-cols-2 gap-6 items-center">
+      <div class="bg-white dark:bg-[#0f1622] border border-gray-200/70 dark:border-[#1f2a3a] rounded-2xl p-6 sm:p-7 shadow-sm">
+        <p class="text-xs font-semibold tracking-[0.25em] uppercase text-blue-500 mb-2">Step 3</p>
+        <h2 class="text-xl sm:text-2xl font-semibold mb-3">User Submits the Review Form</h2>
+        <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">
+          On the website, a customer fills out:
+        </p>
+        <ul class="text-sm text-gray-700 dark:text-gray-200 space-y-1 mb-4">
+          <li>• First &amp; Last Name</li>
+          <li>• Product / Item ID</li>
+          <li>• Star Rating</li>
+          <li>• Review Text</li>
+        </ul>
+        <p class="text-sm text-gray-500 dark:text-gray-400">
+          When they hit <span class="font-semibold">Submit</span>, the form sends all fields to a
+          <span class="font-semibold">Make webhook URL</span>.
+        </p>
+      </div>
+
+      <div class="rounded-2xl overflow-hidden border border-gray-200/70 dark:border-[#1f2a3a] bg-gray-100 dark:bg-[#05080d] flex items-center justify-center p-4">
+        <img
+          src="/assets/hiw/gSheets/form.jpg"
+          alt="Placeholder: screenshot of the Google Sheets review submission form"
+          class="max-h-72 w-full object-contain"
+        />
+      </div>
+    </section>
+
+    <!-- STEP 4: MAKE SCENARIO -->
+    <section class="bg-white dark:bg-[#0f1622] border border-gray-200/70 dark:border-[#1f2a3a] rounded-2xl p-6 sm:p-7 shadow-sm">
+      <div class="flex flex-col lg:flex-row gap-6">
+        <div class="flex-1">
+          <p class="text-xs font-semibold tracking-[0.25em] uppercase text-blue-500 mb-2">Step 4</p>
+          <h2 class="text-xl sm:text-2xl font-semibold mb-3">Make Receives the Webhook &amp; Adds Metadata</h2>
+          <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+            The Make scenario starts with a <span class="font-semibold">Custom Webhook</span> module
+            that receives the payload from the website.
+          </p>
+
+          <div class="grid sm:grid-cols-2 gap-4 text-sm">
+            <div class="rounded-xl border border-gray-200/70 dark:border-[#1f2a3a] bg-gray-50 dark:bg-[#080d15] p-4">
+              <p class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-1">
+                Tools · Variables
+              </p>
+              <p class="font-semibold mb-2">Generate extra fields</p>
+              <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-1">
+                <li><span class="font-semibold">rev_id</span> — random review ID like <code class="code-block">rev_2048</code></li>
+                <li><span class="font-semibold">submit_date</span> — date of submission</li>
+              </ul>
+            </div>
+
+            <div class="rounded-xl border border-gray-200/70 dark:border-[#1f2a3a] bg-gray-50 dark:bg-[#080d15] p-4">
+              <p class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-1">
+                Google Sheets · Add a Row
+              </p>
+              <p class="font-semibold mb-2">Combine form + variables</p>
+              <p class="text-xs text-gray-600 dark:text-gray-300">
+                Make sends all values (form fields + <span class="font-semibold">rev_id</span> +
+                <span class="font-semibold">submit_date</span>) into the next empty row in the
+                <span class="font-semibold">Reviews</span> sheet.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex-1 rounded-2xl overflow-hidden border border-gray-200/70 dark:border-[#1f2a3a] bg-gray-100 dark:bg-[#05080d] flex items-center justify-center p-4">
+          <img
+            src="/assets/hiw/gSheets/make.jpg"
+            alt="Placeholder: screenshot of the Make scenario showing Webhook → Tools → Google Sheets"
+            class="max-h-72 w-full object-contain"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 5: GOOGLE SHEETS DATABASE -->
+    <section class="grid md:grid-cols-2 gap-6 items-start">
+      <div class="bg-white dark:bg-[#0f1622] border border-gray-200/70 dark:border-[#1f2a3a] rounded-2xl p-6 sm:p-7 shadow-sm">
+        <p class="text-xs font-semibold tracking-[0.25em] uppercase text-blue-500 mb-2">Step 5</p>
+        <h2 class="text-xl sm:text-2xl font-semibold mb-3">Google Sheets Stores the Reviews</h2>
+        <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+          Each submission becomes a new row with columns like:
+        </p>
+        <ul class="text-sm text-gray-700 dark:text-gray-200 space-y-1 mb-4">
+          <li>• <span class="font-semibold">review_id</span> (from Make)</li>
+          <li>• <span class="font-semibold">customer_id</span> (generated in-sheet)</li>
+          <li>• <span class="font-semibold">item_id</span>, <span class="font-semibold">first_name</span>, <span class="font-semibold">last_name</span></li>
+          <li>• <span class="font-semibold">star_score</span>, <span class="font-semibold">review_text</span>, <span class="font-semibold">review_date</span></li>
+        </ul>
+
+        <div class="rounded-xl border border-blue-500/40 bg-blue-50/70 dark:bg-[#051728] dark:border-blue-500/60 p-4 mb-2">
+          <p class="text-xs font-semibold uppercase tracking-wide text-blue-600 dark:text-blue-300 mb-2">
+            Customer ID Formula (Demo Only)
+          </p>
+          <pre class="code-block text-xs sm:text-[13px] text-blue-900 dark:text-blue-100 whitespace-pre-wrap break-all">
+=ARRAYFORMULA(
+  IF(A2:A&lt;&gt;"",
+     "cus_" &amp; TEXT(
+       MATCH(ROW(A2:A), FILTER(ROW(A2:A), A2:A&lt;&gt;""), 0),
+     "000"),
+  "")
+)</pre>
+          <p class="mt-2 text-xs text-blue-900/80 dark:text-blue-200/90">
+            This generates demo IDs like <code class="code-block">cus_001</code>,
+            <code class="code-block">cus_002</code>, etc.  
+            It’s not meant to be perfect — just simple for this project.
+          </p>
+        </div>
+      </div>
+
+      <div class="rounded-2xl overflow-hidden border border-gray-200/70 dark:border-[#1f2a3a] bg-gray-100 dark:bg-[#05080d] flex items-center justify-center p-4">
+        <img
+          src="/assets/hiw/gSheets/gSheet01.jpg"
+          alt="Placeholder: screenshot of the Google Sheets reviews table"
+          class="max-h-72 w-full object-contain"
+        />
+      </div>
+    </section>
+
+    <!-- STEP 6: JSONBIN EXPORT -->
+    <section class="bg-white dark:bg-[#0f1622] border border-gray-200/70 dark:border-[#1f2a3a] rounded-2xl p-6 sm:p-7 shadow-sm">
+      <div class="flex flex-col lg:flex-row gap-6">
+        <div class="flex-1">
+          <p class="text-xs font-semibold tracking-[0.25em] uppercase text-blue-500 mb-2">Step 6</p>
+          <h2 class="text-xl sm:text-2xl font-semibold mb-3">Make Converts Rows to JSON &amp; Sends to JSONBin</h2>
+
+          <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">
+            Another part of the Make scenario:
+          </p>
+          <ul class="text-sm text-gray-700 dark:text-gray-200 space-y-1 mb-4">
+            <li>• <span class="font-semibold">Get Range Values</span> from the review sheet</li>
+            <li>• Use an <span class="font-semibold">Array Aggregator</span> to build an array of review objects</li>
+            <li>• Use the <span class="font-semibold">JSON</span> module to create the payload</li>
+            <li>• Send it via <span class="font-semibold">HTTP &gt; Make a request</span> to JSONBin</li>
+          </ul>
+
+          <p class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-1">
+            JSONBin Endpoint
+          </p>
+          <p class="code-block text-xs bg-gray-100 dark:bg-[#05080d] border border-gray-200/70 dark:border-[#1f2a3a] rounded-lg px-3 py-2 mb-3 overflow-x-auto">
+            https://api.jsonbin.io/v3/b/68ded247d0ea881f4093334a
+          </p>
+
+          <p class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-1">
+            Example JSON Structure
+          </p>
+          <pre class="code-block text-[11px] sm:text-xs bg-gray-100 dark:bg-[#05080d] border border-gray-200/70 dark:border-[#1f2a3a] rounded-lg px-3 py-2 max-h-52 overflow-auto">
+{
+  "reviews": [
+    {
+      "id": "rev_2048",
+      "firstName": "iabfsjd",
+      "lastName": "nfkdsjan",
+      "productId": "itm_001",
+      "rating": 3,
+      "reviewText": "This is a test",
+      "createdAt": "10/14/2025"
+    },
+    ...
+  ]
+}</pre>
+        </div>
+
+        <div class="flex-1 rounded-2xl overflow-hidden border border-gray-200/70 dark:border-[#1f2a3a] bg-gray-100 dark:bg-[#05080d] flex items-center justify-center p-4">
+          <img
+            src="/assets/hiw/gSheets/make02.jpg"
+            alt="Placeholder: screenshot of the Make modules for Array Aggregator, JSON, and HTTP"
+            class="max-h-72 w-full object-contain"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 7: WEBSITE VISUALS -->
+    <section class="grid md:grid-cols-2 gap-6 items-center">
+      <div class="rounded-2xl overflow-hidden border border-gray-200/70 dark:border-[#1f2a3a] bg-gray-100 dark:bg-[#05080d] flex items-center justify-center p-4">
+        <img
+          src="/assets/hiw/gSheets/form02.jpg"
+          alt="Placeholder: screenshot of the website showing product and customer review summaries"
+          class="max-h-72 w-full object-contain"
+        />
+      </div>
+
+      <div class="bg-white dark:bg-[#0f1622] border border-gray-200/70 dark:border-[#1f2a3a] rounded-2xl p-6 sm:p-7 shadow-sm">
+        <p class="text-xs font-semibold tracking-[0.25em] uppercase text-blue-500 mb-2">Step 7</p>
+        <h2 class="text-xl sm:text-2xl font-semibold mb-3">Website Reads JSON &amp; Renders Live Summaries</h2>
+        <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
+          The front-end fetches the JSON from JSONBin and builds two visual summaries:
+        </p>
+        <ul class="text-sm text-gray-700 dark:text-gray-200 space-y-1 mb-4">
+          <li>• <span class="font-semibold">Per Product</span> — average rating, review count, recent review snippets</li>
+          <li>• <span class="font-semibold">Per Customer</span> — number of reviews, average rating, products reviewed</li>
+        </ul>
+        <p class="text-xs text-gray-500 dark:text-gray-400">
+          Because everything runs off the same JSON file, the visuals update automatically whenever
+          new data is pushed from Google Sheets via Make.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAV + FOOTER INSERTS -->
+  <script type="module">
+    import { loadNav } from "../../js/pageInserts/nav.js";
+    import { loadFooter } from "../../js/pageInserts/footer.js";
+    loadNav();
+    loadFooter();
+  </script>
+</body>
+</html>

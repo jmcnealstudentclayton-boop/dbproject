@@ -1,3 +1,4 @@
+// api.js — build ping + catalog fetch
 import { WEBHOOK_BUILD, CACHE_TTL_MS, PRODUCTS_JSON_URL } from './config.js';
 
 export function pingBuildOnce({ forceFetch = false } = {}) {
@@ -23,32 +24,27 @@ export function pingBuildOnce({ forceFetch = false } = {}) {
 
     console.log('[build] sending to', WEBHOOK_BUILD, payload);
 
-    // 1) Prefer beacon (no CORS preflight)
+    // Prefer beacon (no preflight)
     if (!forceFetch && navigator.sendBeacon) {
       const blob = new Blob([JSON.stringify(payload)], { type: 'application/json' });
       const ok = navigator.sendBeacon(WEBHOOK_BUILD, blob);
       console.log('[build] beacon sent?', ok);
-      return; // we’re done
+      return;
     }
 
-    // 2) Fallback: fire-and-forget without CORS preflight
-    // Use a "simple" Content-Type so the browser won't preflight.
+    // Fallback: fire-and-forget, no-cors & no credentials
     fetch(WEBHOOK_BUILD, {
       method: 'POST',
-      mode: 'no-cors',                          // opaque response; that's fine
-      credentials: 'omit',                      // critical: no cookies
+      mode: 'no-cors',
+      credentials: 'omit',
       headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
       body: JSON.stringify(payload),
       keepalive: true,
     });
-    // no .then/.catch — response is opaque in no-cors mode
   } catch (e) {
     console.error('[build] error', e);
   }
 }
-
-
-
 
 /**
  * Fetch your catalog only from PRODUCTS_JSON_URL and normalize.
@@ -64,7 +60,6 @@ export async function fetchCatalog({ cacheKey = 'kk_catalog_v1', ttlMs = CACHE_T
     } catch (_) {}
   }
 
-  // Normalize into [{ id, name, price? }, ...]
   const normalize = (raw) => {
     if (!raw) return [];
     const payload = raw?.record ? raw.record : raw;

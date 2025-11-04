@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Submit a Review — SQL Demo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="color-scheme" content="light dark">
+  <style>
+    .code-block {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 dark:bg-[#0b0f14] min-h-screen text-gray-900 dark:text-gray-100">
+
+  <main class="max-w-6xl mx-auto p-4 sm:p-6 lg:p-8 space-y-10">
+
+    <!-- SQL DEMO WARNING / INTRO -->
+    <section class="bg-blue-50 dark:bg-[#031827] border border-blue-200/70 dark:border-blue-500/40 rounded-2xl px-4 py-3 sm:px-5 sm:py-4 text-sm flex items-start gap-3">
+      <div class="mt-0.5">
+        <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-blue-600 text-white text-xs font-semibold">i</span>
+      </div>
+      <div>
+        <p class="font-semibold text-blue-900 dark:text-blue-200 mb-1">
+          SQL Demo Only — No Live Database Connection
+        </p>
+        <p class="text-blue-900/80 dark:text-blue-200/80">
+          This page demonstrates what the SQL review submission form <span class="font-semibold">would look like</span>.
+          On GitHub Pages we can’t run PHP or MySQL, so this form does not actually save data — it’s a visual example
+          of the front end for a MySQL-backed review app.
+        </p>
+      </div>
+    </section>
+
+    <!-- SUBMIT FORM (VISUAL ONLY) -->
+   <section class="bg-white dark:bg-[#0f1622] shadow-sm border border-gray-200/60 dark:border-[#1f2a3a] rounded-2xl p-6 sm:p-8">
+      <div class="flex items-center justify-between gap-4 mb-6">
+        <h1 class="text-2xl sm:text-3xl font-semibold tracking-tight">
+          Submit a Review (PHP + MySQL)
+        </h1>
+        <span class="hidden sm:inline-flex items-center rounded-full border border-gray-300/70 dark:border-[#2a3950] px-3 py-1 text-[11px] uppercase tracking-[0.18em] text-gray-500 dark:text-gray-400">
+          Local Demo Only
+        </span>
+      </div>
+
+      <form method="POST" class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <!-- Customer info -->
+        <div>
+          <label for="firstName" class="block text-sm font-medium mb-1">First name</label>
+          <input id="firstName" name="firstName" type="text"
+                 class="w-full rounded-lg border border-gray-300 dark:border-[#2a3950] bg-white dark:bg-[#0f1622] px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                 required>
+        </div>
+
+        <div>
+          <label for="lastName" class="block text-sm font-medium mb-1">Last name</label>
+          <input id="lastName" name="lastName" type="text"
+                 class="w-full rounded-lg border border-gray-300 dark:border-[#2a3950] bg-white dark:bg-[#0f1622] px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                 required>
+        </div>
+
+        <div>
+          <label for="email" class="block text-sm font-medium mb-1">Email</label>
+          <input id="email" name="email" type="email"
+                 class="w-full rounded-lg border border-gray-300 dark:border-[#2a3950] bg-white dark:bg-[#0f1622] px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                 required>
+        </div>
+
+        <!-- Item select -->
+        <div>
+          <label for="itemId" class="block text-sm font-medium mb-1">Item</label>
+          <select id="itemId" name="itemId"
+                  class="w-full rounded-lg border border-gray-300 dark:border-[#2a3950] bg-white dark:bg-[#0f1622] px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required>
+            <option value="">Choose item…</option>
+            <?php foreach ($items as $item): ?>
+              <option value="<?php echo (int)$item['item_id']; ?>">
+                <?php echo htmlspecialchars($item['item_name']) . " (ID " . (int)$item['item_id'] . ")"; ?>
+              </option>
+            <?php endforeach; ?>
+          </select>
+          <p class="mt-1 text-[11px] text-gray-500 dark:text-gray-400">
+            Items come from the <span class="code-block">items</span> table in MySQL.
+          </p>
+        </div>
+
+        <div>
+          <label for="rating" class="block text-sm font-medium mb-1">Star rating</label>
+          <select id="rating" name="rating"
+                  class="w-full rounded-lg border border-gray-300 dark:border-[#2a3950] bg-white dark:bg-[#0f1622] px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  required>
+            <option value="">Choose…</option>
+            <option value="5">5 - Excellent</option>
+            <option value="4">4 - Good</option>
+            <option value="3">3 - Okay</option>
+            <option value="2">2 - Poor</option>
+            <option value="1">1 - Terrible</option>
+          </select>
+        </div>
+
+        <div class="sm:col-span-2">
+          <label for="reviewText" class="block text-sm font-medium mb-1">Review text</label>
+          <textarea id="reviewText" name="reviewText" rows="4"
+                    class="w-full rounded-lg border border-gray-300 dark:border-[#2a3950] bg-white dark:bg-[#0f1622] px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Write your review here…"></textarea>
+        </div>
+
+        <div class="sm:col-span-2 flex items-center justify-between gap-4">
+          <button type="submit"
+                  class="inline-flex items-center justify-center px-5 py-2.5 rounded-lg bg-blue-600 hover:bg-blue-700 text-white font-medium shadow">
+            Submit Review
+          </button>
+
+          <a href="/pages/hiw/sql.html"
+             class="text-sm underline text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400">
+            See how this SQL setup works →
+          </a>
+        </div>
+      </form>
+    </section>
+
+
+        <!-- SECTION: PHP CODE EXPLAINED -->
+    <section class="bg-white dark:bg-[#0f1622] border border-gray-200/70 dark:border-[#1f2a3a] rounded-2xl shadow-sm p-6 sm:p-8">
+      <p class="text-xs font-semibold tracking-[0.25em] uppercase text-blue-500 mb-2">
+        PHP Walkthrough
+      </p>
+      <h2 class="text-xl sm:text-2xl font-semibold mb-4">Breaking Down the <code class="code-block">submit_review.php</code> File</h2>
+      <p class="text-sm text-gray-600 dark:text-gray-300 mb-5">
+        This file handles everything for the SQL review form — connecting to MySQL, processing form data, inserting rows,
+        and showing messages. Below is the full code with explanations for each section.
+      </p>
+
+      <!-- PHP Section 1 -->
+      <div class="mb-8">
+        <h3 class="text-lg font-semibold mb-2">1. Database Connection & Setup</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">
+          The first few lines define credentials and connect to MySQL using PHP’s <code class="code-block">mysqli</code> object.
+        </p>
+        <pre class="code-block text-[11px] bg-gray-100 dark:bg-[#05080d] border border-gray-200/70 dark:border-[#1f2a3a] rounded-lg px-3 py-3 overflow-auto">
+&lt;?php
+$DB_HOST = "localhost";
+$DB_USER = "root";
+$DB_PASS = "";
+$DB_NAME = "review_app";
+
+$mysqli = @new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
+if ($mysqli-&gt;connect_error) {
+    die("Database connection failed: " . $mysqli-&gt;connect_error);
+}
+?&gt;</pre>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
+          ✅ <span class="font-semibold">Tip:</span> The <code>@</code> before <code>new mysqli()</code> hides default warnings, and you can add your own error message for clarity.
+        </p>
+      </div>
+
+      <!-- PHP Section 2 -->
+      <div class="mb-8">
+        <h3 class="text-lg font-semibold mb-2">2. Handling Form Submission</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">
+          When the form is submitted with <code>POST</code>, PHP grabs the fields and runs some basic validation.
+        </p>
+        <pre class="code-block text-[11px] bg-gray-100 dark:bg-[#05080d] border border-gray-200/70 dark:border-[#1f2a3a] rounded-lg px-3 py-3 overflow-auto">
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+  $firstName  = trim($_POST["firstName"]);
+  $lastName   = trim($_POST["lastName"]);
+  $email      = trim($_POST["email"]);
+  $itemId     = (int)$_POST["itemId"];
+  $rating     = (int)$_POST["rating"];
+  $reviewText = trim($_POST["reviewText"]);
+
+  if ($firstName === "" || $lastName === "" || $email === "" || $itemId &lt;= 0) {
+    $errorMessage = "Please fill out all required fields.";
+  }
+}</pre>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
+          ✅ <span class="font-semibold">Tip:</span> Casting <code>(int)</code> ensures we don’t accidentally insert letters or invalid IDs into the database.
+        </p>
+      </div>
+
+      <!-- PHP Section 3 -->
+      <div class="mb-8">
+        <h3 class="text-lg font-semibold mb-2">3. Inserting the Customer & Review</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">
+          This part inserts or updates the customer (if their email already exists), then inserts the review.
+        </p>
+        <pre class="code-block text-[11px] bg-gray-100 dark:bg-[#05080d] border border-gray-200/70 dark:border-[#1f2a3a] rounded-lg px-3 py-3 overflow-auto">
+-- Insert or update the customer
+$stmt = $mysqli-&gt;prepare("
+  INSERT INTO customers (first_name, last_name, email)
+  VALUES (?, ?, ?)
+  ON DUPLICATE KEY UPDATE
+    first_name = VALUES(first_name),
+    last_name = VALUES(last_name)
+");
+$stmt-&gt;bind_param("sss", $firstName, $lastName, $email);
+$stmt-&gt;execute();
+
+-- Fetch the customer's ID
+$stmt = $mysqli-&gt;prepare("SELECT customer_id FROM customers WHERE email = ?");
+$stmt-&gt;bind_param("s", $email);
+$stmt-&gt;execute();
+$stmt-&gt;bind_result($customerId);
+$stmt-&gt;fetch();
+
+-- Insert the review
+$stmt = $mysqli-&gt;prepare("
+  INSERT INTO reviews (customer_id, item_id, star_score, review_text)
+  VALUES (?, ?, ?, ?)
+");
+$stmt-&gt;bind_param("iiis", $customerId, $itemId, $rating, $reviewText);
+$stmt-&gt;execute();</pre>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
+          ✅ <span class="font-semibold">Tip:</span> <code>ON DUPLICATE KEY UPDATE</code> allows reusing the same email for multiple reviews without duplicating customer records.
+        </p>
+      </div>
+
+      <!-- PHP Section 4 -->
+      <div class="mb-8">
+        <h3 class="text-lg font-semibold mb-2">4. Fetching Items for the Dropdown</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">
+          Before rendering the form, PHP queries all items to build the dropdown list dynamically.
+        </p>
+        <pre class="code-block text-[11px] bg-gray-100 dark:bg-[#05080d] border border-gray-200/70 dark:border-[#1f2a3a] rounded-lg px-3 py-3 overflow-auto">
+$items = [];
+$result = $mysqli-&gt;query("SELECT item_id, item_name FROM items ORDER BY item_name");
+while ($row = $result-&gt;fetch_assoc()) {
+  $items[] = $row;
+}</pre>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
+          ✅ <span class="font-semibold">Tip:</span> You can verify this output by printing <code>print_r($items)</code> to debug the array.
+        </p>
+      </div>
+
+      <!-- PHP Section 5 -->
+      <div>
+        <h3 class="text-lg font-semibold mb-2">5. Rendering the Form with Tailwind CSS</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-300 mb-2">
+          The rest of the file is just HTML with embedded PHP for the dropdown and status messages.
+        </p>
+        <pre class="code-block text-[11px] bg-gray-100 dark:bg-[#05080d] border border-gray-200/70 dark:border-[#1f2a3a] rounded-lg px-3 py-3 overflow-auto">
+&lt;form method="POST"&gt;
+  &lt;input name="firstName" placeholder="First name" required&gt;
+  &lt;input name="lastName" placeholder="Last name" required&gt;
+  &lt;input name="email" type="email" required&gt;
+
+  &lt;select name="itemId" required&gt;
+    &lt;?php foreach ($items as $item): ?&gt;
+      &lt;option value="&lt;?= $item['item_id'] ?&gt;"&gt;
+        &lt;?= htmlspecialchars($item['item_name']) ?&gt;
+      &lt;/option&gt;
+    &lt;?php endforeach; ?&gt;
+  &lt;/select&gt;
+
+  &lt;textarea name="reviewText"&gt;&lt;/textarea&gt;
+  &lt;button type="submit"&gt;Submit Review&lt;/button&gt;
+&lt;/form&gt;</pre>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
+          ✅ <span class="font-semibold">Tip:</span> PHP inside HTML uses <code>&lt;?php ... ?&gt;</code> or the shorthand <code>&lt;?= ... ?&gt;</code> to echo variables.
+        </p>
+      </div>
+    </section>
+
+
+  </main>
+
+  <!-- NAV + FOOTER -->
+  <script type="module">
+    import { loadNav } from "../../js/pageInserts/nav.js";
+    import { loadFooter } from "../../js/pageInserts/footer.js";
+    loadNav();
+    loadFooter();
+  </script>
+</body>
+</html>

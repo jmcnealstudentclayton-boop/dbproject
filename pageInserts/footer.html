@@ -1,0 +1,30 @@
+<!-- pageInserts/footer.html -->
+<footer class="bg-gray-900 text-gray-300 mt-16">
+  <div class="max-w-7xl mx-auto px-6 py-10 text-center border-t border-gray-700 space-y-4">
+
+    <!-- Participants Section -->
+    <div>
+      <h2 class="text-sm font-semibold uppercase tracking-wide text-gray-400 mb-2">Project Participants</h2>
+      <ul class="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-sm text-gray-300">
+        <li>Justin McNeal</li>
+        <li class="hidden sm:block text-gray-600">•</li>
+        <li>Jo Thompson</li>
+        <li class="hidden sm:block text-gray-600">•</li>
+        <li>Obi Ihenakwe</li>
+      </ul>
+    </div>
+
+    <!-- Divider -->
+    <div class="border-t border-gray-700 w-32 mx-auto"></div>
+
+    <!-- Copyright -->
+    <div>
+      <p class="text-sm">© <span id="year"></span> Database Project — All Rights Reserved</p>
+      <p class="text-xs text-gray-500 mt-1">Built using HTML, JS, and TailwindCSS</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
