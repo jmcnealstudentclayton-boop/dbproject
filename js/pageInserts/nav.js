@@ -1,11 +1,24 @@
 // js/pageInserts/nav.js
-const PROJECT_BASE = "/dbproject"; // <-- your GitHub Pages repo name
+
+// Detect base path depending on environment (local vs GitHub Pages)
+const REPO_NAME = "dbproject";
+
+function getBasePath() {
+  const path = window.location.pathname || "";
+  // On GitHub Pages: /dbproject/...
+  if (path.startsWith(`/${REPO_NAME}/`)) {
+    return `/${REPO_NAME}`;
+  }
+  // Local dev (e.g. 127.0.0.1:5500) usually serves from project root
+  return "";
+}
+
+const PROJECT_BASE = getBasePath();
 
 export async function loadNav() {
   try {
     const container = document.createElement("div");
 
-    // Use repo base path to load nav.html correctly on GitHub Pages
     const res = await fetch(`${PROJECT_BASE}/pageInserts/nav.html`);
     if (!res.ok) throw new Error("Failed to load nav.html");
 
