@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How It Works — Review Systems Overview</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="color-scheme" content="light dark">
+  <style>
+    .code-block {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 dark:bg-[#0b0f14] min-h-screen text-gray-900 dark:text-gray-100">
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-10">
+
+    <!-- HERO -->
+    <section class="bg-white dark:bg-[#0f1622] border border-gray-200/70 dark:border-[#1f2a3a] rounded-2xl p-6 sm:p-8 shadow-sm">
+      <div class="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
+        <div class="lg:w-7/12 space-y-4">
+          <p class="text-xs font-semibold tracking-[0.22em] uppercase text-blue-500">
+            Reviews · Project Overview
+          </p>
+          <h1 class="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight">
+            How the Review Systems Work
+          </h1>
+          <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300">
+            This portfolio walks through the same review data model implemented three different ways:
+            <span class="font-semibold">Google Sheets</span>, a local
+            <span class="font-semibold">MySQL + PHP</span> stack, and
+            <span class="font-semibold">Supabase (hosted Postgres)</span>.
+          </p>
+          <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300">
+            Each page below explains the tools, schema, and data flow — from user form submission
+            all the way to live review summaries.
+          </p>
+        </div>
+
+        <div class="lg:w-5/12 rounded-2xl border border-gray-200/70 dark:border-[#1f2a3a] bg-gray-100 dark:bg-[#05080d] p-4 sm:p-5">
+          <p class="text-xs font-semibold tracking-[0.25em] uppercase text-gray-500 dark:text-gray-400 mb-2">
+            Same Data · Different Stacks
+          </p>
+          <ul class="text-xs sm:text-sm text-gray-700 dark:text-gray-200 space-y-1">
+            <li>• Shared concept of <span class="font-semibold">items</span>, <span class="font-semibold">customers</span>, and <span class="font-semibold">reviews</span>.</li>
+            <li>• Focus on <span class="font-semibold">normalized tables</span> and <span class="font-semibold">summary views</span>.</li>
+            <li>• Shows how SQL skills translate between tools and hosting environments.</li>
+          </ul>
+          <p class="text-[11px] text-gray-500 dark:text-gray-400 mt-3">
+            Use this page as a map: pick the stack you’re interested in, then jump into its detailed
+            “How It Works” page.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3-CARD GRID -->
+    <section class="grid md:grid-cols-3 gap-4 md:gap-6">
+
+      <!-- Google Sheets Card -->
+      <article class="bg-white dark:bg-[#0f1622] border border-gray-200/70 dark:border-[#1f2a3a] rounded-2xl p-5 sm:p-6 flex flex-col justify-between">
+        <div class="space-y-3">
+          <p class="text-[11px] font-semibold tracking-[0.25em] uppercase text-emerald-500">
+            Option 1
+          </p>
+          <h2 class="text-lg font-semibold">Google Sheets + Make + JSONBin</h2>
+          <p class="text-sm text-gray-600 dark:text-gray-300">
+            A “no-code / low-code” database built with Google Sheets as the backend,
+            Make (Integromat) for automation, and JSONBin to feed reviews to the website.
+          </p>
+          <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-1">
+            <li>• Web form → Make webhook → Google Sheets</li>
+            <li>• Array formulas generate demo IDs (e.g. <span class="code-block inline">cus_001</span>).</li>
+            <li>• Make converts rows to JSON and publishes to JSONBin.</li>
+          </ul>
+        </div>
+        <div class="mt-4 flex items-center justify-between gap-2">
+          <span class="text-[11px] uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400">
+            Great for: quick prototypes
+          </span>
+          <a href="googlesheet.html"
+             class="inline-flex items-center justify-center rounded-full px-3 py-1.5 text-xs font-semibold bg-blue-600 text-white hover:bg-blue-500 transition">
+            View Details
+          </a>
+        </div>
+      </article>
+
+      <!-- SQL / MySQL Card -->
+      <article class="bg-white dark:bg-[#0f1622] border border-gray-200/70 dark:border-[#1f2a3a] rounded-2xl p-5 sm:p-6 flex flex-col justify-between">
+        <div class="space-y-3">
+          <p class="text-[11px] font-semibold tracking-[0.25em] uppercase text-amber-500">
+            Option 2
+          </p>
+          <h2 class="text-lg font-semibold">Local SQL (MySQL + PHP + XAMPP)</h2>
+          <p class="text-sm text-gray-600 dark:text-gray-300">
+            A classic server-side stack using MySQL, dBeaver for database management, and PHP
+            running on XAMPP to handle form submissions.
+          </p>
+          <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-1">
+            <li>• XAMPP runs Apache + MySQL locally.</li>
+            <li>• dBeaver manages schemas, tables, and views.</li>
+            <li>• PHP receives POST requests and runs SQL <span class="code-block inline">INSERT</span> queries.</li>
+          </ul>
+        </div>
+        <div class="mt-4 flex items-center justify-between gap-2">
+          <span class="text-[11px] uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400">
+            Great for: backend fundamentals
+          </span>
+          <a href="sql.html"
+             class="inline-flex items-center justify-center rounded-full px-3 py-1.5 text-xs font-semibold bg-blue-600 text-white hover:bg-blue-500 transition">
+            View Details
+          </a>
+        </div>
+      </article>
+
+      <!-- Supabase Card -->
+      <article class="bg-white dark:bg-[#0f1622] border border-gray-200/70 dark:border-[#1f2a3a] rounded-2xl p-5 sm:p-6 flex flex-col justify-between">
+        <div class="space-y-3">
+          <p class="text-[11px] font-semibold tracking-[0.25em] uppercase text-purple-500">
+            Option 3
+          </p>
+          <h2 class="text-lg font-semibold">Supabase (Hosted Postgres)</h2>
+          <p class="text-sm text-gray-600 dark:text-gray-300">
+            A modern cloud option where Supabase hosts a full Postgres database and exposes
+            it through secure REST and JavaScript APIs.
+          </p>
+          <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-1">
+            <li>• Tables + views created in Supabase SQL editor.</li>
+            <li>• Front-end calls <span class="code-block inline">supabase.from("reviews")</span> directly.</li>
+            <li>• Same schema and views as the MySQL project, just in the cloud.</li>
+          </ul>
+        </div>
+        <div class="mt-4 flex items-center justify-between gap-2">
+          <span class="text-[11px] uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400">
+            Great for: production-style hosting
+          </span>
+          <a href="superbase.html"
+             class="inline-flex items-center justify-center rounded-full px-3 py-1.5 text-xs font-semibold bg-blue-600 text-white hover:bg-blue-500 transition">
+            View Details
+          </a>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- COMPARISON STRIP -->
+    <section class="bg-white dark:bg-[#0f1622] border border-gray-200/70 dark:border-[#1f2a3a] rounded-2xl p-5 sm:p-6 shadow-sm">
+      <p class="text-xs font-semibold tracking-[0.25em] uppercase text-blue-500 mb-2">
+        Quick Comparison
+      </p>
+      <div class="grid md:grid-cols-3 gap-4 text-xs sm:text-sm">
+        <div class="space-y-1">
+          <p class="font-semibold text-gray-800 dark:text-gray-100 mb-1">Hosting</p>
+          <p class="text-gray-600 dark:text-gray-300">Google Sheets lives in the cloud, but works like a spreadsheet backend.</p>
+          <p class="text-gray-600 dark:text-gray-300">MySQL + PHP runs on your own machine via XAMPP.</p>
+          <p class="text-gray-600 dark:text-gray-300">Supabase hosts Postgres and exposes it via APIs.</p>
+        </div>
+        <div class="space-y-1">
+          <p class="font-semibold text-gray-800 dark:text-gray-100 mb-1">How Reviews Are Stored</p>
+          <p class="text-gray-600 dark:text-gray-300">Rows in Google Sheets, generated IDs, summary sheets for stats.</p>
+          <p class="text-gray-600 dark:text-gray-300">Relational tables and views in MySQL, managed in dBeaver.</p>
+          <p class="text-gray-600 dark:text-gray-300">Relational tables and views in hosted Postgres via Supabase.</p>
+        </div>
+        <div class="space-y-1">
+          <p class="font-semibold text-gray-800 dark:text-gray-100 mb-1">Form → Database Path</p>
+          <p class="text-gray-600 dark:text-gray-300">Form → Make Webhook → Sheets → JSONBin → Website.</p>
+          <p class="text-gray-600 dark:text-gray-300">Form → PHP (XAMPP) → MySQL → Views.</p>
+          <p class="text-gray-600 dark:text-gray-300">Form → Supabase JS client → Postgres tables + views.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- NAV + FOOTER -->
+  <script type="module">
+    import { loadNav } from "../../js/pageInserts/nav.js";
+    import { loadFooter } from "../../js/pageInserts/footer.js";
+    loadNav();
+    loadFooter();
+  </script>
+</body>
+</html>

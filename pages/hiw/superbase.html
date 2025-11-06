@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How It Works — Supabase Review Database</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <meta name="color-scheme" content="light dark">
+  <style>
+    .step-dot {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+    .code-block {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 dark:bg-[#0b0f14] min-h-screen text-gray-900 dark:text-gray-100">
+
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 space-y-10">
+
+    <!-- HERO + TIMELINE -->
+    <section class="bg-white dark:bg-[#0f1622] border border-gray-200/70 dark:border-[#1f2a3a] rounded-2xl p-6 sm:p-8 shadow-sm">
+      <div class="flex flex-col lg:flex-row gap-8 lg:gap-10">
+        <!-- LEFT -->
+        <div class="lg:w-4/12">
+          <p class="text-xs font-semibold tracking-[0.22em] uppercase text-blue-500 mb-2">
+            Supabase · Postgres in the Cloud
+          </p>
+          <h1 class="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight mb-4">
+            How the Supabase Review Database Works
+          </h1>
+          <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300 mb-3">
+            This setup takes the same review data model from the SQL + Google Sheets projects
+            and runs it on <span class="font-semibold">Supabase</span>, which provides a hosted
+            Postgres database and auto-generated APIs.
+          </p>
+          <p class="text-sm sm:text-base text-gray-600 dark:text-gray-300">
+            The browser sends reviews directly to Supabase, Postgres stores the rows, and
+            SQL <span class="font-semibold">views</span> keep item and customer summaries up to date.
+          </p>
+        </div>
+
+        <!-- RIGHT: TWO-COLUMN TIMELINE -->
+        <div class="lg:w-8/12 grid grid-cols-1 md:grid-cols-2 gap-x-8 border-l border-gray-200/60 dark:border-[#273248] pl-5 relative">
+
+          <!-- Column 1 -->
+          <div class="space-y-6 relative before:content-[''] before:absolute before:top-0 before:left-[2px] before:w-px before:h-full before:bg-gray-200/60 dark:before:bg-[#273248]">
+            <!-- Step 1 -->
+            <div class="relative">
+              <span class="step-dot w-7 h-7 bg-blue-600 text-white absolute -left-3">1</span>
+              <div class="ml-6">
+                <p class="text-xs font-semibold uppercase tracking-wide">Create Supabase Project</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">
+                  Set up a Supabase project, which gives you a Postgres database and a secure API layer.
+                </p>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="relative">
+              <span class="step-dot w-7 h-7 bg-blue-600 text-white absolute -left-3">2</span>
+              <div class="ml-6">
+                <p class="text-xs font-semibold uppercase tracking-wide">Define Tables in SQL Editor</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">
+                  Use the SQL editor or Table view to create <span class="font-semibold">items</span>,
+                  <span class="font-semibold">customers</span>, and <span class="font-semibold">reviews</span>.
+                </p>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="relative">
+              <span class="step-dot w-7 h-7 bg-blue-600 text-white absolute -left-3">3</span>
+              <div class="ml-6">
+                <p class="text-xs font-semibold uppercase tracking-wide">Create Summary Views</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">
+                  Add views like <span class="code-block text-[11px]">v_item_review_summary</span>
+                  and <span class="code-block text-[11px]">v_customer_review_summary</span> to calculate stats.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Column 2 -->
+          <div class="space-y-6 relative before:content-[''] before:absolute before:top-0 before:left-[2px] before:w-px before:h-full before:bg-gray-200/60 dark:before:bg-[#273248]">
+            <!-- Step 4 -->
+            <div class="relative">
+              <span class="step-dot w-7 h-7 bg-blue-600 text-white absolute -left-3">4</span>
+              <div class="ml-6">
+                <p class="text-xs font-semibold uppercase tracking-wide">Connect Front-End via JS</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">
+                  Use the Supabase JavaScript client to insert reviews and read data in real time.
+                </p>
+              </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="relative">
+              <span class="step-dot w-7 h-7 bg-blue-600 text-white absolute -left-3">5</span>
+              <div class="ml-6">
+                <p class="text-xs font-semibold uppercase tracking-wide">Insert Reviews from the Form</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">
+                  The <span class="code-block text-[11px]">f_superbase.html</span> form sends item, customer,
+                  and star score data directly into the <span class="font-semibold">reviews</span> table.
+                </p>
+              </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="relative">
+              <span class="step-dot w-7 h-7 bg-blue-600 text-white absolute -left-3">6</span>
+              <div class="ml-6">
+                <p class="text-xs font-semibold uppercase tracking-wide">Read Views for Live Stats</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">
+                  Front-end pages can select from the views to show average ratings and review counts
+                  without extra math in JavaScript.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CORE TABLES -->
+    <section class="grid md:grid-cols-2 gap-6 items-start">
+      <div class="bg-white dark:bg-[#0f1622] border border-gray-200/70 dark:border-[#1f2a3a] rounded-2xl p-6 sm:p-7 shadow-sm">
+        <p class="text-xs font-semibold tracking-[0.25em] uppercase text-blue-500 mb-2">
+          Schema Design
+        </p>
+        <h2 class="text-xl sm:text-2xl font-semibold mb-3">Core Tables in Supabase (Postgres)</h2>
+        <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">
+          Supabase uses standard Postgres tables. The review system keeps the same structure as the
+          SQL and Google Sheets projects for consistency.
+        </p>
+        <ul class="text-sm text-gray-700 dark:text-gray-200 space-y-1 mb-4">
+          <li>• <span class="font-semibold">items</span> — products a user can review.</li>
+          <li>• <span class="font-semibold">customers</span> — people leaving the reviews.</li>
+          <li>• <span class="font-semibold">reviews</span> — ties items + customers + rating.</li>
+        </ul>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">
+          Example of the <span class="font-semibold">reviews</span> table columns:
+        </p>
+        <ul class="text-xs text-gray-600 dark:text-gray-300 space-y-1">
+          <li>• <span class="code-block inline text-blue-500">review_id</span> — primary key</li>
+          <li>• <span class="code-block inline text-blue-500">item_id</span> — foreign key → items</li>
+          <li>• <span class="code-block inline text-blue-500">customer_id</span> — foreign key → customers</li>
+          <li>• <span class="code-block inline text-blue-500">star_score</span> — rating 1–5</li>
+          <li>• <span class="code-block inline text-blue-500">review_date</span> — defaults to <span class="code-block inline">now()</span></li>
+          <li>• <span class="code-block inline text-blue-500">comments</span> — optional text</li>
+        </ul>
+      </div>
+
+      <div class="rounded-2xl border border-gray-200/70 dark:border-[#1f2a3a] bg-gray-100 dark:bg-[#05080d] p-4 flex items-center justify-center">
+        <div class="space-y-3 text-xs text-gray-700 dark:text-gray-200 max-w-sm">
+          <p class="font-semibold text-sm">Supabase as “Hosted SQL”</p>
+          <p>
+            Under the hood, this is still a normal relational database. The difference is that
+            Supabase hosts it, secures it, and generates a REST + JS API layer automatically.
+          </p>
+          <p>
+            That means you can test and debug your SQL in the Supabase SQL editor, then read the
+            exact same data from your front-end with a one-line JavaScript query.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- REQUEST FLOW -->
+    <section class="bg-white dark:bg-[#0f1622] border border-gray-200/70 dark:border-[#1f2a3a] rounded-2xl p-6 sm:p-7 shadow-sm">
+      <div class="flex flex-col lg:flex-row gap-6">
+        <div class="flex-1">
+          <p class="text-xs font-semibold tracking-[0.25em] uppercase text-blue-500 mb-2">
+            Front-End Flow
+          </p>
+          <h2 class="text-xl sm:text-2xl font-semibold mb-3">Browser → Supabase → Postgres</h2>
+          <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">
+            When someone submits the Supabase form, the data travels directly from the browser
+            to the database using the Supabase client library.
+          </p>
+
+          <ol class="list-decimal pl-5 text-xs text-gray-600 dark:text-gray-300 space-y-1 mb-4">
+            <li>User selects an <span class="font-semibold">item</span> and a <span class="font-semibold">star rating</span>.</li>
+            <li>The form builds a JavaScript object with <span class="code-block inline">itemId</span>, <span class="code-block inline">customerId</span>, and <span class="code-block inline">stars</span>.</li>
+            <li>JavaScript calls <span class="code-block inline">supabase.from("reviews").insert(...)</span>.</li>
+            <li>Supabase validates the request, then runs an <span class="code-block inline">INSERT</span> in Postgres.</li>
+            <li>Views like <span class="code-block inline text-blue-500">v_item_review_summary</span> see the new row immediately.</li>
+          </ol>
+
+          <p class="text-xs text-gray-500 dark:text-gray-400">
+            Unlike the SQL + PHP/XAMPP setup, there’s no separate web server you manage here —
+            Supabase acts as the secure gateway to the database.
+          </p>
+        </div>
+
+        <div class="flex-1 rounded-2xl border border-gray-200/70 dark:border-[#1f2a3a] bg-gray-100 dark:bg-[#05080d] p-4">
+          <p class="text-xs font-semibold uppercase tracking-wide text-gray-500 dark:text-gray-400 mb-2">
+            Data Flow Snapshot
+          </p>
+          <pre class="code-block text-[11px] sm:text-xs bg-gray-100 dark:bg-[#05080d] border border-gray-200/70 dark:border-[#1f2a3a] rounded-lg px-3 py-3 whitespace-pre-wrap break-words">
+Browser (HTML form + JS)
+    ⇅
+Supabase JS client (createClient)
+    ⇅
+Supabase API (Row Level Security, auth, validations)
+    ⇅
+Postgres (items, customers, reviews tables + summary views)</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- SUPABASE JS EXAMPLE -->
+    <section class="space-y-4">
+      <div class="flex items-baseline justify-between gap-4">
+        <div>
+          <p class="text-xs font-semibold tracking-[0.25em] uppercase text-blue-500 mb-1">
+            JavaScript Example
+          </p>
+          <h2 class="text-xl sm:text-2xl font-semibold">Inserting a Review with Supabase JS</h2>
+        </div>
+        <p class="text-xs md:text-sm text-gray-500 dark:text-gray-400 max-w-xs">
+          This mirrors what the real front-end script does when someone submits the Supabase review form.
+        </p>
+      </div>
+
+      <div class="rounded-2xl border border-gray-200/70 dark:border-[#1f2a3a] bg-gray-900/90 text-gray-100 overflow-hidden">
+        <div class="flex items-center justify-between px-4 py-2 border-b border-gray-800 bg-gray-950/80">
+          <span class="text-xs font-mono text-gray-300">/js/superbase/submitReview.js</span>
+          <span class="text-[10px] uppercase tracking-[0.2em] text-blue-300">demo code</span>
+        </div>
+        <pre class="code-block text-[11px] sm:text-xs leading-relaxed p-4 overflow-x-auto">
+// import { createClient } from "@supabase/supabase-js";
+
+// In production, these come from environment variables:
+const SUPABASE_URL = "https://YOUR-PROJECT-ID.supabase.co";
+const SUPABASE_ANON_KEY = "YOUR_PUBLIC_ANON_KEY";
+
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+/**
+ * Submit a review row to the "reviews" table.
+ * Matches the SQL schema created in Supabase.
+ */
+async function submitReview({ itemId, customerId, stars, comments }) {
+  const { data, error } = await supabase
+    .from("reviews")
+    .insert({
+      item_id: itemId,
+      customer_id: customerId,
+      star_score: stars,
+      comments: comments,
+      // review_date can default to now() in SQL
+    })
+    .select(); // return inserted row(s)
+
+  if (error) {
+    console.error("Error inserting review:", error);
+    throw error;
+  }
+
+  console.log("Inserted review:", data);
+  return data;
+}</pre>
+      </div>
+    </section>
+
+    <!-- VIEWS SECTION -->
+    <section class="bg-white dark:bg-[#0f1622] border border-gray-200/70 dark:border-[#1f2a3a] rounded-2xl p-6 sm:p-7 shadow-sm">
+      <div class="flex flex-col lg:flex-row gap-6">
+        <div class="flex-1">
+          <p class="text-xs font-semibold tracking-[0.25em] uppercase text-blue-500 mb-2">
+            Summary Views
+          </p>
+          <h2 class="text-xl sm:text-2xl font-semibold mb-3">Item &amp; Customer Review Summaries</h2>
+          <p class="text-sm text-gray-600 dark:text-gray-300 mb-3">
+            Just like the MySQL project, Supabase uses <span class="font-semibold">views</span> to
+            keep summary data simple and queryable without duplicating rows.
+          </p>
+          <pre class="code-block text-[11px] sm:text-xs bg-gray-100 dark:bg-[#05080d] border border-gray-200/70 dark:border-[#1f2a3a] rounded-lg px-3 py-3 max-h-64 overflow-auto mb-3">
+CREATE VIEW v_item_review_summary AS
+SELECT
+  i.item_id,
+  i.item_name,
+  COUNT(r.review_id) AS reviews_count,
+  AVG(r.star_score)  AS avg_score,
+  MIN(r.review_date) AS first_review_at,
+  MAX(r.review_date) AS last_review_at
+FROM items i
+LEFT JOIN reviews r ON r.item_id = i.item_id
+GROUP BY i.item_id, i.item_name;</pre>
+
+          <pre class="code-block text-[11px] sm:text-xs bg-gray-100 dark:bg-[#05080d] border border-gray-200/70 dark:border-[#1f2a3a] rounded-lg px-3 py-3 max-h-64 overflow-auto">
+CREATE VIEW v_customer_review_summary AS
+SELECT
+  c.customer_id,
+  c.customer_name,
+  COUNT(r.review_id) AS reviews_count
+FROM customers c
+LEFT JOIN reviews r ON r.customer_id = c.customer_id
+GROUP BY c.customer_id, c.customer_name;</pre>
+        </div>
+
+        <div class="flex-1 rounded-2xl overflow-hidden border border-gray-200/70 dark:border-[#1f2a3a] bg-gray-100 dark:bg-[#05080d] p-4 flex items-center">
+          <div class="space-y-3 text-xs text-gray-700 dark:text-gray-200">
+            <p class="font-semibold text-sm">Why Use Views Here?</p>
+            <ul class="space-y-1 list-disc list-inside">
+              <li>Keep all business logic (averages, counts) in SQL instead of duplicating it in JavaScript.</li>
+              <li>Front-end can call <span class="code-block inline">select("*")</span> on the view like a normal table.</li>
+              <li>If the logic changes, update one view instead of every page in the site.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHY SUPABASE -->
+    <section class="grid md:grid-cols-3 gap-4 md:gap-6 items-start">
+      <div class="bg-white dark:bg-[#0f1622] border border-gray-200/70 dark:border-[#1f2a3a] rounded-2xl p-5 shadow-sm">
+        <p class="text-xs font-semibold tracking-[0.25em] uppercase text-blue-500 mb-2">
+          Reason 1
+        </p>
+        <h3 class="text-sm font-semibold mb-1">Hosted, Real Postgres</h3>
+        <p class="text-xs text-gray-600 dark:text-gray-300">
+          No local XAMPP or MySQL needed. Supabase manages the database server, backups, and scaling.
+        </p>
+      </div>
+
+      <div class="bg-white dark:bg-[#0f1622] border border-gray-200/70 dark:border-[#1f2a3a] rounded-2xl p-5 shadow-sm">
+        <p class="text-xs font-semibold tracking-[0.25em] uppercase text-blue-500 mb-2">
+          Reason 2
+        </p>
+        <h3 class="text-sm font-semibold mb-1">Auto-Generated APIs</h3>
+        <p class="text-xs text-gray-600 dark:text-gray-300">
+          Every table and view automatically gets a REST and JS API, making it easy to plug directly
+          into front-end forms.
+        </p>
+      </div>
+
+      <div class="bg-white dark:bg-[#0f1622] border border-gray-200/70 dark:border-[#1f2a3a] rounded-2xl p-5 shadow-sm">
+        <p class="text-xs font-semibold tracking-[0.25em] uppercase text-blue-500 mb-2">
+          Reason 3
+        </p>
+        <h3 class="text-sm font-semibold mb-1">Matches SQL Skills</h3>
+        <p class="text-xs text-gray-600 dark:text-gray-300">
+          All the SQL you learned in the local MySQL project transfers directly here — same views,
+          same joins, just in the cloud.
+        </p>
+      </div>
+    </section>
+
+    <!-- FOOTER NOTE -->
+    <section class="pt-4 border-t border-gray-200/70 dark:border-[#1f2a3a] text-xs text-gray-500 dark:text-gray-400 flex flex-wrap items-center justify-between gap-3">
+      <p>Part of the Reviews mini-project: Google Sheets → SQL → Supabase.</p>
+      <p>
+        Next: 
+        <a href="f_superbase.html" class="text-blue-500 hover:text-blue-400 underline underline-offset-2">
+          Supabase Review Submission Form
+        </a>
+      </p>
+    </section>
+
+  </main>
+
+  <!-- NAV + FOOTER -->
+  <script type="module">
+    import { loadNav } from "../../js/pageInserts/nav.js";
+    import { loadFooter } from "../../js/pageInserts/footer.js";
+    loadNav();
+    loadFooter();
+  </script>
+</body>
+</html>
